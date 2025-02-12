@@ -1,0 +1,4016 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)https://tfapi.aysar.com:555/swagger/ui/index#/Values -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <title>Wings Soft API TransFast</title>
+  <link rel="icon" type="image/png" href="https://tfapi.aysar.com:555/swagger/ui/images/favicon-32x32-png" sizes="32x32">
+  <link rel="icon" type="image/png" href="https://tfapi.aysar.com:555/swagger/ui/images/favicon-16x16-png" sizes="16x16">
+  <link href="./Wings Soft API TransFast_files/typography-css" media="screen" rel="stylesheet" type="text/css">
+  <link href="./Wings Soft API TransFast_files/reset-css" media="screen" rel="stylesheet" type="text/css">
+  <link href="./Wings Soft API TransFast_files/screen-css" media="screen" rel="stylesheet" type="text/css">
+  <link href="./Wings Soft API TransFast_files/reset-css" media="print" rel="stylesheet" type="text/css">
+  <link href="./Wings Soft API TransFast_files/print-css" media="print" rel="stylesheet" type="text/css">
+  
+
+  <script src="./Wings Soft API TransFast_files/object-assign-pollyfill-js" type="text/javascript"></script>
+  <script src="./Wings Soft API TransFast_files/jquery-1-8-0-min-js" type="text/javascript"></script>
+  <script src="./Wings Soft API TransFast_files/jquery-slideto-min-js" type="text/javascript"></script>
+  <script src="./Wings Soft API TransFast_files/jquery-wiggle-min-js" type="text/javascript"></script>
+  <script src="./Wings Soft API TransFast_files/jquery-ba-bbq-min-js" type="text/javascript"></script>
+  <script src="./Wings Soft API TransFast_files/handlebars-4-0-5-js" type="text/javascript"></script>
+  <script src="./Wings Soft API TransFast_files/lodash-min-js" type="text/javascript"></script>
+  <script src="./Wings Soft API TransFast_files/backbone-min-js" type="text/javascript"></script>
+  <script src="./Wings Soft API TransFast_files/swagger-ui-min-js" type="text/javascript"></script>
+  <script src="./Wings Soft API TransFast_files/highlight-9-1-0-pack-js" type="text/javascript"></script>
+  <script src="./Wings Soft API TransFast_files/highlight-9-1-0-pack_extended-js" type="text/javascript"></script>
+  <script src="./Wings Soft API TransFast_files/jsoneditor-min-js" type="text/javascript"></script>
+  <script src="./Wings Soft API TransFast_files/marked-js" type="text/javascript"></script>
+  <script src="./Wings Soft API TransFast_files/swagger-oauth-js" type="text/javascript"></script>
+
+  <!-- Some basic translations -->
+  <!-- <script src='lang/translator.js' type='text/javascript'></script> -->
+  <!-- <script src='lang/ru.js' type='text/javascript'></script> -->
+  <!-- <script src='lang/en.js' type='text/javascript'></script> -->
+
+  <script type="text/javascript">
+    $(function () {
+
+      // Get Swashbuckle config into JavaScript
+      function arrayFrom(configString) {
+        return (configString !== "") ? configString.split('|') : [];
+      }
+
+      function stringOrNullFrom(configString) {
+        return (configString !== "null") ? configString : null;
+      }
+
+      window.swashbuckleConfig = {
+        rootUrl: 'https://tfapi.aysar.com:555/',
+        discoveryPaths: arrayFrom('swagger/docs/v1'),
+        booleanValues: arrayFrom('true|false'),
+        validatorUrl: stringOrNullFrom(''),
+        customScripts: arrayFrom('ext/TransFastAPI-Swagger2-SwaggerUiCustomization-js'),
+        docExpansion: 'none',
+        supportedSubmitMethods: arrayFrom('get|put|post|delete|options|head|patch'),
+        oAuth2Enabled: ('false' == 'true'),
+        oAuth2ClientId: '',
+        oAuth2ClientSecret: '',
+        oAuth2Realm: '',
+        oAuth2AppName: '',
+        oAuth2ScopeSeperator: ' ',
+        oAuth2AdditionalQueryStringParams: JSON.parse('{}'),
+        apiKeyName: 'Authorization',
+        apiKeyIn: 'header'
+      };
+
+      hljs.configure({
+        highlightSizeThreshold: 5000
+      });
+
+      // Pre load translate...
+      if(window.SwaggerTranslator) {
+        window.SwaggerTranslator.translate();
+      }
+      window.swaggerUi = new SwaggerUi({
+        url: swashbuckleConfig.rootUrl + "/" + swashbuckleConfig.discoveryPaths[0],
+        dom_id: "swagger-ui-container",
+        booleanValues: swashbuckleConfig.booleanValues,
+        supportedSubmitMethods: swashbuckleConfig.supportedSubmitMethods,
+        onComplete: function(swaggerApi, swaggerUi){
+          if (typeof initOAuth == "function" && swashbuckleConfig.oAuth2Enabled) {
+            initOAuth({
+              clientId: swashbuckleConfig.oAuth2ClientId,
+              clientSecret: swashbuckleConfig.oAuth2ClientSecret,
+              realm: swashbuckleConfig.oAuth2Realm,
+              appName: swashbuckleConfig.oAuth2AppName,
+              scopeSeparator: swashbuckleConfig.oAuth2ScopeSeperator,
+              additionalQueryStringParams: swashbuckleConfig.oAuth2AdditionalQueryStringParams
+            });
+          }
+
+          if(window.SwaggerTranslator) {
+            window.SwaggerTranslator.translate();
+          }
+
+          addApiKeyAuthorization();
+
+          window.swaggerApi = swaggerApi;
+          _.each(swashbuckleConfig.customScripts, function (script) {
+            $.getScript(script);
+          });
+        },
+        onFailure: function(data) {
+          log("Unable to Load SwaggerUI");
+        },
+        docExpansion: swashbuckleConfig.docExpansion,
+        jsonEditor: false,
+        apisSorter: null, // default to server
+        defaultModelRendering: 'schema',
+        showRequestHeaders: false,
+        oauth2RedirectUrl: window.location.href.replace('index', 'o2c-html').split('#')[0]
+      });
+
+      if (window.swashbuckleConfig.validatorUrl !== '')
+        window.swaggerUi.options.validatorUrl = window.swashbuckleConfig.validatorUrl;
+
+      function addApiKeyAuthorization() {
+        var key = $('#input_apiKey')[0].value;
+        if (key && key.trim() != "") {
+          if (swashbuckleConfig.apiKeyIn === "query") {
+              key = encodeURIComponent(key);
+          }
+          var apiKeyAuth = new SwaggerClient.ApiKeyAuthorization(swashbuckleConfig.apiKeyName, key, swashbuckleConfig.apiKeyIn);
+          window.swaggerUi.api.clientAuthorizations.add("api_key", apiKeyAuth);
+          log("added key " + key);
+        }
+      }
+      $('#input_apiKey').change(addApiKeyAuthorization);
+
+      window.swaggerUi.load();
+
+      function log() {
+        if ('console' in window) {
+          console.log.apply(console, arguments);
+        }
+      }
+  });
+  </script>
+</head>
+
+<body class="swagger-section vsc-initialized">
+<div id="header">
+  <div class="swagger-ui-wrap">
+    <a id="logo" href="http://swagger.io/"><img class="logo__img" alt="swagger" height="30" width="30" src="./Wings Soft API TransFast_files/logo_small-png"><span class="logo__title">swagger</span></a>
+    <form id="api_selector">
+      <div class="input"><input placeholder="http://example.com/api" id="input_baseUrl" name="baseUrl" type="text"></div>
+      <div class="input"><input placeholder="api_key" id="input_apiKey" name="apiKey" type="text"></div>
+      <div class="input"><a id="explore" class="header__btn" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Explore</a></div>
+    </form>
+  </div>
+</div>
+
+<div id="message-bar" class="swagger-ui-wrap message-success" data-sw-translate=""></div>
+<div id="swagger-ui-container" class="swagger-ui-wrap"><div class="info" id="api_info">
+  <div class="info_title">TransFastAPI</div>
+  <div class="info_description markdown"></div>
+  
+  
+  
+  
+  
+</div>
+<div class="container" id="resources_container">
+  <div class="authorize-wrapper"></div>
+
+  <ul id="resources"><li id="resource_Values" class="resource active"><div class="heading">
+  <h2>
+    <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values" class="toggleEndpointList" data-id="Values">Values</a> 
+  </h2>
+  <ul class="options">
+    <li>
+      <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values" id="endpointListTogger_Values" class="toggleEndpointList" data-id="Values" data-sw-translate="">Show/Hide</a>
+    </li>
+    <li>
+      <a href="https://tfapi.aysar.com:555/swagger/ui/index#" class="collapseResource" data-id="Values" data-sw-translate="">
+        List Operations
+      </a>
+    </li>
+    <li>
+      <a href="https://tfapi.aysar.com:555/swagger/ui/index#" class="expandResource" data-id="Values" data-sw-translate="">
+        Expand Operations
+      </a>
+    </li>
+  </ul>
+</div>
+<ul class="endpoints" id="Values_endpoint_list" style="">
+
+<li class="endpoint">  <ul class="operations">
+    <li class="post operation" id="Values_Values_GetCountryList">
+      <div class="heading">
+        <h3>
+          <span class="http_method">
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetCountryList" class="toggleOperation">post</a>
+          </span>
+          <span class="path">
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetCountryList" class="toggleOperation ">/api/GetCountryList</a>
+          </span>
+        </h3>
+        <ul class="options">
+          <li>
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetCountryList" class="toggleOperation"><span class="markdown"></span></a>
+          </li>
+        </ul>
+      </div>
+      <div class="content" id="Values_Values_GetCountryList_content" style="display:none">
+          <div class="response-class">
+            <h4><span data-sw-translate="">Response Class</span> (<span data-sw-translate="">Status</span> 200)</h4>
+              <div class="markdown"><p>OK</p>
+</div>
+            <p><span class="model-signature"><div>
+<div>
+<ul class="signature-nav">
+  <li><a class="description-link" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Model</a></li>
+  <li><a class="snippet-link selected" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Example Value</a></li>
+</ul>
+<div>
+
+<div class="signature-container">
+  <div class="description" style="display: none;">
+      <span class="strong">Inline Model {</span><span class="strong">}</span>
+  </div>
+
+  <div class="snippet" style="display: block;">
+      <div class="snippet_json" style="display: block;">
+        <pre><code>{}</code></pre>
+        
+      </div>
+    <div class="snippet_xml" style="display: none;">
+      <pre><code>&lt;?xml version="1.0"?&gt;
+&lt;!-- invalid XML --&gt;
+</code></pre>
+      
+    </div>
+  </div>
+</div>
+</div></div></div></span></p>
+            <br>
+            <div class="response-content-type"><div><label data-sw-translate="" for="rct0.9116875453561795">Response Content Type</label>
+<select name="responseContentType" id="rct0.9116875453561795">
+  <option value="application/json">application/json</option>
+  <option value="text/json">text/json</option>
+  <option value="application/xml">application/xml</option>
+  <option value="text/xml">text/xml</option>
+</select>
+</div></div>
+            </div>
+
+
+        <form accept-charset="UTF-8" class="sandbox">
+          <div style="margin:0;padding:0;display:inline"></div>
+          <h4 data-sw-translate="">Parameters</h4>
+          <table class="fullwidth parameters">
+          <thead>
+            <tr>
+            <th style="width: 100px; max-width: 100px" data-sw-translate="">Parameter</th>
+            <th style="width: 310px; max-width: 310px" data-sw-translate="">Value</th>
+            <th style="width: 200px; max-width: 200px" data-sw-translate="">Description</th>
+            <th style="width: 100px; max-width: 100px" data-sw-translate="">Parameter Type</th>
+            <th style="width: 220px; max-width: 230px" data-sw-translate="">Data Type</th>
+            </tr>
+          </thead>
+          <tbody class="operation-params">
+
+          <tr><td class="code required"><label for="mAuthentication0.1738066021913427">Authentication</label></td>
+<td>
+				<textarea class="body-textarea required" placeholder="(required)" name="Authentication" id="mAuthentication0.1738066021913427"></textarea>
+				<div class="editor_holder"></div>
+				<br>
+				<div class="parameter-content-type"><div><label for="pct0.2385641299336445" data-sw-translate="">Parameter content type:</label>
+<select name="parameterContentType" id="pct0.2385641299336445">
+  <option value="application/json">application/json</option>
+  <option value="text/json">text/json</option>
+  <option value="application/xml">application/xml</option>
+  <option value="text/xml">text/xml</option>
+  <option value="application/x-www-form-urlencoded">application/x-www-form-urlencoded</option>
+</select>
+</div></div>
+</td>
+<td>
+	<strong><span class="markdown"></span></strong>
+</td>
+<td>body</td>
+<td><span class="model-signature"><div>
+<div>
+<ul class="signature-nav">
+  <li><a class="description-link" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Model</a></li>
+  <li><a class="snippet-link selected" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Example Value</a></li>
+</ul>
+<div>
+
+<div class="signature-container">
+  <div class="description" style="display: none;">
+      <span class="strong">AgentAuthentication {</span><div><span class="propName ">AgentCode</span> (<span class="propType">integer</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">UserCode</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">UserPassword</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>)</div><span class="strong">}</span>
+  </div>
+
+  <div class="snippet" style="display: block;">
+      <div class="snippet_json" style="display: block;">
+        <pre><code>{
+  "AgentCode": 0,
+  "UserCode": "string",
+  "UserPassword": "string"
+}</code></pre>
+        <small class="notice" data-sw-translate=""></small>
+      </div>
+    <div class="snippet_xml" style="display: none;">
+      <pre><code>&lt;?xml version="1.0"?&gt;
+&lt;AgentAuthentication&gt;
+  &lt;AgentCode&gt;1&lt;/AgentCode&gt;
+  &lt;UserCode&gt;string&lt;/UserCode&gt;
+  &lt;UserPassword&gt;string&lt;/UserPassword&gt;
+&lt;/AgentAuthentication&gt;
+</code></pre>
+      <small class="notice" data-sw-translate=""></small>
+    </div>
+  </div>
+</div>
+</div></div></div></span></td>
+</tr><tr><td class="code"><label for="mAuthorization0.3013042641365551">Authorization</label></td>
+<td>
+
+<input class="parameter" minlength="0" name="Authorization" placeholder="" id="mAuthorization0.3013042641365551" type="text" value="">
+</td>
+<td class="markdown"><p>access token</p>
+</td>
+<td>header</td>
+<td>
+	<span class="model-signature">string</span>
+</td>
+</tr></tbody>
+          </table>
+          <div class="sandbox_header">
+            <input class="submit" type="submit" value="Try it out!" data-sw-translate="">
+            <a href="https://tfapi.aysar.com:555/swagger/ui/index#" class="response_hider" style="display:none" data-sw-translate="">Hide Response</a>
+            <span class="response_throbber" style="display:none"></span>
+          </div>
+        </form>
+        <div class="response" style="display:none">
+          <h4 class="curl">Curl</h4>
+          <div class="block curl"></div>
+          <h4 data-sw-translate="">Request URL</h4>
+          <div class="block request_url"></div>
+          <h4 data-sw-translate="">Response Body</h4>
+          <div class="block response_body"></div>
+          <h4 data-sw-translate="">Response Code</h4>
+          <div class="block response_code"></div>
+          <h4 data-sw-translate="">Response Headers</h4>
+          <div class="block response_headers"></div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</li><li class="endpoint">  <ul class="operations">
+    <li class="post operation" id="Values_Values_GetReceiverCurrAnyWhere">
+      <div class="heading">
+        <h3>
+          <span class="http_method">
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetReceiverCurrAnyWhere" class="toggleOperation">post</a>
+          </span>
+          <span class="path">
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetReceiverCurrAnyWhere" class="toggleOperation ">/api/GetReceiverCurrAnyWhere</a>
+          </span>
+        </h3>
+        <ul class="options">
+          <li>
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetReceiverCurrAnyWhere" class="toggleOperation"><span class="markdown"></span></a>
+          </li>
+        </ul>
+      </div>
+      <div class="content" id="Values_Values_GetReceiverCurrAnyWhere_content" style="display:none">
+          <div class="response-class">
+            <h4><span data-sw-translate="">Response Class</span> (<span data-sw-translate="">Status</span> 200)</h4>
+              <div class="markdown"><p>OK</p>
+</div>
+            <p><span class="model-signature"><div>
+<div>
+<ul class="signature-nav">
+  <li><a class="description-link" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Model</a></li>
+  <li><a class="snippet-link selected" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Example Value</a></li>
+</ul>
+<div>
+
+<div class="signature-container">
+  <div class="description" style="display: none;">
+      <span class="strong">Inline Model {</span><span class="strong">}</span>
+  </div>
+
+  <div class="snippet" style="display: block;">
+      <div class="snippet_json" style="display: block;">
+        <pre><code>{}</code></pre>
+        
+      </div>
+    <div class="snippet_xml" style="display: none;">
+      <pre><code>&lt;?xml version="1.0"?&gt;
+&lt;!-- invalid XML --&gt;
+</code></pre>
+      
+    </div>
+  </div>
+</div>
+</div></div></div></span></p>
+            <br>
+            <div class="response-content-type"><div><label data-sw-translate="" for="rct0.9197924471110162">Response Content Type</label>
+<select name="responseContentType" id="rct0.9197924471110162">
+  <option value="application/json">application/json</option>
+  <option value="text/json">text/json</option>
+  <option value="application/xml">application/xml</option>
+  <option value="text/xml">text/xml</option>
+</select>
+</div></div>
+            </div>
+
+
+        <form accept-charset="UTF-8" class="sandbox">
+          <div style="margin:0;padding:0;display:inline"></div>
+          <h4 data-sw-translate="">Parameters</h4>
+          <table class="fullwidth parameters">
+          <thead>
+            <tr>
+            <th style="width: 100px; max-width: 100px" data-sw-translate="">Parameter</th>
+            <th style="width: 310px; max-width: 310px" data-sw-translate="">Value</th>
+            <th style="width: 200px; max-width: 200px" data-sw-translate="">Description</th>
+            <th style="width: 100px; max-width: 100px" data-sw-translate="">Parameter Type</th>
+            <th style="width: 220px; max-width: 230px" data-sw-translate="">Data Type</th>
+            </tr>
+          </thead>
+          <tbody class="operation-params">
+
+          <tr><td class="code required"><label for="mStates_Req0.7558554168283911">States_Req</label></td>
+<td>
+				<textarea class="body-textarea required" placeholder="(required)" name="States_Req" id="mStates_Req0.7558554168283911"></textarea>
+				<div class="editor_holder"></div>
+				<br>
+				<div class="parameter-content-type"><div><label for="pct0.47176698725812494" data-sw-translate="">Parameter content type:</label>
+<select name="parameterContentType" id="pct0.47176698725812494">
+  <option value="application/json">application/json</option>
+  <option value="text/json">text/json</option>
+  <option value="application/xml">application/xml</option>
+  <option value="text/xml">text/xml</option>
+  <option value="application/x-www-form-urlencoded">application/x-www-form-urlencoded</option>
+</select>
+</div></div>
+</td>
+<td>
+	<strong><span class="markdown"></span></strong>
+</td>
+<td>body</td>
+<td><span class="model-signature"><div>
+<div>
+<ul class="signature-nav">
+  <li><a class="description-link" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Model</a></li>
+  <li><a class="snippet-link selected" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Example Value</a></li>
+</ul>
+<div>
+
+<div class="signature-container">
+  <div class="description" style="display: none;">
+      <span class="strong">States_Req {</span><div><span class="propName ">Authentication</span> (<span class="propType">AgentAuthentication</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">Country</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>)</div><span class="strong">}</span><br><span class="strong">AgentAuthentication {</span><div><span class="propName ">AgentCode</span> (<span class="propType">integer</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">UserCode</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">UserPassword</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>)</div><span class="strong">}</span>
+  </div>
+
+  <div class="snippet" style="display: block;">
+      <div class="snippet_json" style="display: block;">
+        <pre><code>{
+  "Authentication": {
+    "AgentCode": 0,
+    "UserCode": "string",
+    "UserPassword": "string"
+  },
+  "Country": "string"
+}</code></pre>
+        <small class="notice" data-sw-translate=""></small>
+      </div>
+    <div class="snippet_xml" style="display: none;">
+      <pre><code>&lt;?xml version="1.0"?&gt;
+&lt;States_Req&gt;
+  &lt;Authentication&gt;
+    &lt;AgentCode&gt;1&lt;/AgentCode&gt;
+    &lt;UserCode&gt;string&lt;/UserCode&gt;
+    &lt;UserPassword&gt;string&lt;/UserPassword&gt;
+  &lt;/Authentication&gt;
+  &lt;Country&gt;string&lt;/Country&gt;
+&lt;/States_Req&gt;
+</code></pre>
+      <small class="notice" data-sw-translate=""></small>
+    </div>
+  </div>
+</div>
+</div></div></div></span></td>
+</tr><tr><td class="code"><label for="mAuthorization0.0006010204619606441">Authorization</label></td>
+<td>
+
+<input class="parameter" minlength="0" name="Authorization" placeholder="" id="mAuthorization0.0006010204619606441" type="text" value="">
+</td>
+<td class="markdown"><p>access token</p>
+</td>
+<td>header</td>
+<td>
+	<span class="model-signature">string</span>
+</td>
+</tr></tbody>
+          </table>
+          <div class="sandbox_header">
+            <input class="submit" type="submit" value="Try it out!" data-sw-translate="">
+            <a href="https://tfapi.aysar.com:555/swagger/ui/index#" class="response_hider" style="display:none" data-sw-translate="">Hide Response</a>
+            <span class="response_throbber" style="display:none"></span>
+          </div>
+        </form>
+        <div class="response" style="display:none">
+          <h4 class="curl">Curl</h4>
+          <div class="block curl"></div>
+          <h4 data-sw-translate="">Request URL</h4>
+          <div class="block request_url"></div>
+          <h4 data-sw-translate="">Response Body</h4>
+          <div class="block response_body"></div>
+          <h4 data-sw-translate="">Response Code</h4>
+          <div class="block response_code"></div>
+          <h4 data-sw-translate="">Response Headers</h4>
+          <div class="block response_headers"></div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</li><li class="endpoint">  <ul class="operations">
+    <li class="post operation" id="Values_Values_GetStates">
+      <div class="heading">
+        <h3>
+          <span class="http_method">
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetStates" class="toggleOperation">post</a>
+          </span>
+          <span class="path">
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetStates" class="toggleOperation ">/api/GetStates</a>
+          </span>
+        </h3>
+        <ul class="options">
+          <li>
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetStates" class="toggleOperation"><span class="markdown"></span></a>
+          </li>
+        </ul>
+      </div>
+      <div class="content" id="Values_Values_GetStates_content" style="display:none">
+          <div class="response-class">
+            <h4><span data-sw-translate="">Response Class</span> (<span data-sw-translate="">Status</span> 200)</h4>
+              <div class="markdown"><p>OK</p>
+</div>
+            <p><span class="model-signature"><div>
+<div>
+<ul class="signature-nav">
+  <li><a class="description-link" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Model</a></li>
+  <li><a class="snippet-link selected" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Example Value</a></li>
+</ul>
+<div>
+
+<div class="signature-container">
+  <div class="description" style="display: none;">
+      <span class="strong">Inline Model {</span><span class="strong">}</span>
+  </div>
+
+  <div class="snippet" style="display: block;">
+      <div class="snippet_json" style="display: block;">
+        <pre><code>{}</code></pre>
+        
+      </div>
+    <div class="snippet_xml" style="display: none;">
+      <pre><code>&lt;?xml version="1.0"?&gt;
+&lt;!-- invalid XML --&gt;
+</code></pre>
+      
+    </div>
+  </div>
+</div>
+</div></div></div></span></p>
+            <br>
+            <div class="response-content-type"><div><label data-sw-translate="" for="rct0.23310605870762346">Response Content Type</label>
+<select name="responseContentType" id="rct0.23310605870762346">
+  <option value="application/json">application/json</option>
+  <option value="text/json">text/json</option>
+  <option value="application/xml">application/xml</option>
+  <option value="text/xml">text/xml</option>
+</select>
+</div></div>
+            </div>
+
+
+        <form accept-charset="UTF-8" class="sandbox">
+          <div style="margin:0;padding:0;display:inline"></div>
+          <h4 data-sw-translate="">Parameters</h4>
+          <table class="fullwidth parameters">
+          <thead>
+            <tr>
+            <th style="width: 100px; max-width: 100px" data-sw-translate="">Parameter</th>
+            <th style="width: 310px; max-width: 310px" data-sw-translate="">Value</th>
+            <th style="width: 200px; max-width: 200px" data-sw-translate="">Description</th>
+            <th style="width: 100px; max-width: 100px" data-sw-translate="">Parameter Type</th>
+            <th style="width: 220px; max-width: 230px" data-sw-translate="">Data Type</th>
+            </tr>
+          </thead>
+          <tbody class="operation-params">
+
+          <tr><td class="code required"><label for="mBody0.9201204418085731">Body</label></td>
+<td>
+				<textarea class="body-textarea required" placeholder="(required)" name="Body" id="mBody0.9201204418085731"></textarea>
+				<div class="editor_holder"></div>
+				<br>
+				<div class="parameter-content-type"><div><label for="pct0.3408564959607001" data-sw-translate="">Parameter content type:</label>
+<select name="parameterContentType" id="pct0.3408564959607001">
+  <option value="application/json">application/json</option>
+  <option value="text/json">text/json</option>
+  <option value="application/xml">application/xml</option>
+  <option value="text/xml">text/xml</option>
+  <option value="application/x-www-form-urlencoded">application/x-www-form-urlencoded</option>
+</select>
+</div></div>
+</td>
+<td>
+	<strong><span class="markdown"></span></strong>
+</td>
+<td>body</td>
+<td><span class="model-signature"><div>
+<div>
+<ul class="signature-nav">
+  <li><a class="description-link" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Model</a></li>
+  <li><a class="snippet-link selected" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Example Value</a></li>
+</ul>
+<div>
+
+<div class="signature-container">
+  <div class="description" style="display: none;">
+      <span class="strong">States_Req {</span><div><span class="propName ">Authentication</span> (<span class="propType">AgentAuthentication</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">Country</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>)</div><span class="strong">}</span><br><span class="strong">AgentAuthentication {</span><div><span class="propName ">AgentCode</span> (<span class="propType">integer</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">UserCode</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">UserPassword</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>)</div><span class="strong">}</span>
+  </div>
+
+  <div class="snippet" style="display: block;">
+      <div class="snippet_json" style="display: block;">
+        <pre><code>{
+  "Authentication": {
+    "AgentCode": 0,
+    "UserCode": "string",
+    "UserPassword": "string"
+  },
+  "Country": "string"
+}</code></pre>
+        <small class="notice" data-sw-translate=""></small>
+      </div>
+    <div class="snippet_xml" style="display: none;">
+      <pre><code>&lt;?xml version="1.0"?&gt;
+&lt;States_Req&gt;
+  &lt;Authentication&gt;
+    &lt;AgentCode&gt;1&lt;/AgentCode&gt;
+    &lt;UserCode&gt;string&lt;/UserCode&gt;
+    &lt;UserPassword&gt;string&lt;/UserPassword&gt;
+  &lt;/Authentication&gt;
+  &lt;Country&gt;string&lt;/Country&gt;
+&lt;/States_Req&gt;
+</code></pre>
+      <small class="notice" data-sw-translate=""></small>
+    </div>
+  </div>
+</div>
+</div></div></div></span></td>
+</tr><tr><td class="code"><label for="mAuthorization0.7428107275188303">Authorization</label></td>
+<td>
+
+<input class="parameter" minlength="0" name="Authorization" placeholder="" id="mAuthorization0.7428107275188303" type="text" value="">
+</td>
+<td class="markdown"><p>access token</p>
+</td>
+<td>header</td>
+<td>
+	<span class="model-signature">string</span>
+</td>
+</tr></tbody>
+          </table>
+          <div class="sandbox_header">
+            <input class="submit" type="submit" value="Try it out!" data-sw-translate="">
+            <a href="https://tfapi.aysar.com:555/swagger/ui/index#" class="response_hider" style="display:none" data-sw-translate="">Hide Response</a>
+            <span class="response_throbber" style="display:none"></span>
+          </div>
+        </form>
+        <div class="response" style="display:none">
+          <h4 class="curl">Curl</h4>
+          <div class="block curl"></div>
+          <h4 data-sw-translate="">Request URL</h4>
+          <div class="block request_url"></div>
+          <h4 data-sw-translate="">Response Body</h4>
+          <div class="block response_body"></div>
+          <h4 data-sw-translate="">Response Code</h4>
+          <div class="block response_code"></div>
+          <h4 data-sw-translate="">Response Headers</h4>
+          <div class="block response_headers"></div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</li><li class="endpoint">  <ul class="operations">
+    <li class="post operation" id="Values_Values_GetCities">
+      <div class="heading">
+        <h3>
+          <span class="http_method">
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetCities" class="toggleOperation">post</a>
+          </span>
+          <span class="path">
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetCities" class="toggleOperation ">/api/GetCities</a>
+          </span>
+        </h3>
+        <ul class="options">
+          <li>
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetCities" class="toggleOperation"><span class="markdown"></span></a>
+          </li>
+        </ul>
+      </div>
+      <div class="content" id="Values_Values_GetCities_content" style="display:none">
+          <div class="response-class">
+            <h4><span data-sw-translate="">Response Class</span> (<span data-sw-translate="">Status</span> 200)</h4>
+              <div class="markdown"><p>OK</p>
+</div>
+            <p><span class="model-signature"><div>
+<div>
+<ul class="signature-nav">
+  <li><a class="description-link" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Model</a></li>
+  <li><a class="snippet-link selected" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Example Value</a></li>
+</ul>
+<div>
+
+<div class="signature-container">
+  <div class="description" style="display: none;">
+      <span class="strong">Inline Model {</span><span class="strong">}</span>
+  </div>
+
+  <div class="snippet" style="display: block;">
+      <div class="snippet_json" style="display: block;">
+        <pre><code>{}</code></pre>
+        
+      </div>
+    <div class="snippet_xml" style="display: none;">
+      <pre><code>&lt;?xml version="1.0"?&gt;
+&lt;!-- invalid XML --&gt;
+</code></pre>
+      
+    </div>
+  </div>
+</div>
+</div></div></div></span></p>
+            <br>
+            <div class="response-content-type"><div><label data-sw-translate="" for="rct0.9325052172219923">Response Content Type</label>
+<select name="responseContentType" id="rct0.9325052172219923">
+  <option value="application/json">application/json</option>
+  <option value="text/json">text/json</option>
+  <option value="application/xml">application/xml</option>
+  <option value="text/xml">text/xml</option>
+</select>
+</div></div>
+            </div>
+
+
+        <form accept-charset="UTF-8" class="sandbox">
+          <div style="margin:0;padding:0;display:inline"></div>
+          <h4 data-sw-translate="">Parameters</h4>
+          <table class="fullwidth parameters">
+          <thead>
+            <tr>
+            <th style="width: 100px; max-width: 100px" data-sw-translate="">Parameter</th>
+            <th style="width: 310px; max-width: 310px" data-sw-translate="">Value</th>
+            <th style="width: 200px; max-width: 200px" data-sw-translate="">Description</th>
+            <th style="width: 100px; max-width: 100px" data-sw-translate="">Parameter Type</th>
+            <th style="width: 220px; max-width: 230px" data-sw-translate="">Data Type</th>
+            </tr>
+          </thead>
+          <tbody class="operation-params">
+
+          <tr><td class="code required"><label for="mBody0.4398880559544862">Body</label></td>
+<td>
+				<textarea class="body-textarea required" placeholder="(required)" name="Body" id="mBody0.4398880559544862"></textarea>
+				<div class="editor_holder"></div>
+				<br>
+				<div class="parameter-content-type"><div><label for="pct0.9060956806961569" data-sw-translate="">Parameter content type:</label>
+<select name="parameterContentType" id="pct0.9060956806961569">
+  <option value="application/json">application/json</option>
+  <option value="text/json">text/json</option>
+  <option value="application/xml">application/xml</option>
+  <option value="text/xml">text/xml</option>
+  <option value="application/x-www-form-urlencoded">application/x-www-form-urlencoded</option>
+</select>
+</div></div>
+</td>
+<td>
+	<strong><span class="markdown"></span></strong>
+</td>
+<td>body</td>
+<td><span class="model-signature"><div>
+<div>
+<ul class="signature-nav">
+  <li><a class="description-link" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Model</a></li>
+  <li><a class="snippet-link selected" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Example Value</a></li>
+</ul>
+<div>
+
+<div class="signature-container">
+  <div class="description" style="display: none;">
+      <span class="strong">Cities_Req {</span><div><span class="propName ">Authentication</span> (<span class="propType">AgentAuthentication</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">Country</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">StateId</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>)</div><span class="strong">}</span><br><span class="strong">AgentAuthentication {</span><div><span class="propName ">AgentCode</span> (<span class="propType">integer</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">UserCode</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">UserPassword</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>)</div><span class="strong">}</span>
+  </div>
+
+  <div class="snippet" style="display: block;">
+      <div class="snippet_json" style="display: block;">
+        <pre><code>{
+  "Authentication": {
+    "AgentCode": 0,
+    "UserCode": "string",
+    "UserPassword": "string"
+  },
+  "Country": "string",
+  "StateId": "string"
+}</code></pre>
+        <small class="notice" data-sw-translate=""></small>
+      </div>
+    <div class="snippet_xml" style="display: none;">
+      <pre><code>&lt;?xml version="1.0"?&gt;
+&lt;Cities_Req&gt;
+  &lt;Authentication&gt;
+    &lt;AgentCode&gt;1&lt;/AgentCode&gt;
+    &lt;UserCode&gt;string&lt;/UserCode&gt;
+    &lt;UserPassword&gt;string&lt;/UserPassword&gt;
+  &lt;/Authentication&gt;
+  &lt;Country&gt;string&lt;/Country&gt;
+  &lt;StateId&gt;string&lt;/StateId&gt;
+&lt;/Cities_Req&gt;
+</code></pre>
+      <small class="notice" data-sw-translate=""></small>
+    </div>
+  </div>
+</div>
+</div></div></div></span></td>
+</tr><tr><td class="code"><label for="mAuthorization0.42582964637041965">Authorization</label></td>
+<td>
+
+<input class="parameter" minlength="0" name="Authorization" placeholder="" id="mAuthorization0.42582964637041965" type="text" value="">
+</td>
+<td class="markdown"><p>access token</p>
+</td>
+<td>header</td>
+<td>
+	<span class="model-signature">string</span>
+</td>
+</tr></tbody>
+          </table>
+          <div class="sandbox_header">
+            <input class="submit" type="submit" value="Try it out!" data-sw-translate="">
+            <a href="https://tfapi.aysar.com:555/swagger/ui/index#" class="response_hider" style="display:none" data-sw-translate="">Hide Response</a>
+            <span class="response_throbber" style="display:none"></span>
+          </div>
+        </form>
+        <div class="response" style="display:none">
+          <h4 class="curl">Curl</h4>
+          <div class="block curl"></div>
+          <h4 data-sw-translate="">Request URL</h4>
+          <div class="block request_url"></div>
+          <h4 data-sw-translate="">Response Body</h4>
+          <div class="block response_body"></div>
+          <h4 data-sw-translate="">Response Code</h4>
+          <div class="block response_code"></div>
+          <h4 data-sw-translate="">Response Headers</h4>
+          <div class="block response_headers"></div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</li><li class="endpoint">  <ul class="operations">
+    <li class="post operation" id="Values_Values_GetTowns">
+      <div class="heading">
+        <h3>
+          <span class="http_method">
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetTowns" class="toggleOperation">post</a>
+          </span>
+          <span class="path">
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetTowns" class="toggleOperation ">/api/GetTowns</a>
+          </span>
+        </h3>
+        <ul class="options">
+          <li>
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetTowns" class="toggleOperation"><span class="markdown"></span></a>
+          </li>
+        </ul>
+      </div>
+      <div class="content" id="Values_Values_GetTowns_content" style="display:none">
+          <div class="response-class">
+            <h4><span data-sw-translate="">Response Class</span> (<span data-sw-translate="">Status</span> 200)</h4>
+              <div class="markdown"><p>OK</p>
+</div>
+            <p><span class="model-signature"><div>
+<div>
+<ul class="signature-nav">
+  <li><a class="description-link" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Model</a></li>
+  <li><a class="snippet-link selected" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Example Value</a></li>
+</ul>
+<div>
+
+<div class="signature-container">
+  <div class="description" style="display: none;">
+      <span class="strong">Inline Model {</span><span class="strong">}</span>
+  </div>
+
+  <div class="snippet" style="display: block;">
+      <div class="snippet_json" style="display: block;">
+        <pre><code>{}</code></pre>
+        
+      </div>
+    <div class="snippet_xml" style="display: none;">
+      <pre><code>&lt;?xml version="1.0"?&gt;
+&lt;!-- invalid XML --&gt;
+</code></pre>
+      
+    </div>
+  </div>
+</div>
+</div></div></div></span></p>
+            <br>
+            <div class="response-content-type"><div><label data-sw-translate="" for="rct0.0693656907013569">Response Content Type</label>
+<select name="responseContentType" id="rct0.0693656907013569">
+  <option value="application/json">application/json</option>
+  <option value="text/json">text/json</option>
+  <option value="application/xml">application/xml</option>
+  <option value="text/xml">text/xml</option>
+</select>
+</div></div>
+            </div>
+
+
+        <form accept-charset="UTF-8" class="sandbox">
+          <div style="margin:0;padding:0;display:inline"></div>
+          <h4 data-sw-translate="">Parameters</h4>
+          <table class="fullwidth parameters">
+          <thead>
+            <tr>
+            <th style="width: 100px; max-width: 100px" data-sw-translate="">Parameter</th>
+            <th style="width: 310px; max-width: 310px" data-sw-translate="">Value</th>
+            <th style="width: 200px; max-width: 200px" data-sw-translate="">Description</th>
+            <th style="width: 100px; max-width: 100px" data-sw-translate="">Parameter Type</th>
+            <th style="width: 220px; max-width: 230px" data-sw-translate="">Data Type</th>
+            </tr>
+          </thead>
+          <tbody class="operation-params">
+
+          <tr><td class="code required"><label for="mBody0.2947518457451912">Body</label></td>
+<td>
+				<textarea class="body-textarea required" placeholder="(required)" name="Body" id="mBody0.2947518457451912"></textarea>
+				<div class="editor_holder"></div>
+				<br>
+				<div class="parameter-content-type"><div><label for="pct0.6157465908119415" data-sw-translate="">Parameter content type:</label>
+<select name="parameterContentType" id="pct0.6157465908119415">
+  <option value="application/json">application/json</option>
+  <option value="text/json">text/json</option>
+  <option value="application/xml">application/xml</option>
+  <option value="text/xml">text/xml</option>
+  <option value="application/x-www-form-urlencoded">application/x-www-form-urlencoded</option>
+</select>
+</div></div>
+</td>
+<td>
+	<strong><span class="markdown"></span></strong>
+</td>
+<td>body</td>
+<td><span class="model-signature"><div>
+<div>
+<ul class="signature-nav">
+  <li><a class="description-link" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Model</a></li>
+  <li><a class="snippet-link selected" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Example Value</a></li>
+</ul>
+<div>
+
+<div class="signature-container">
+  <div class="description" style="display: none;">
+      <span class="strong">Towns_Req {</span><div><span class="propName ">Authentication</span> (<span class="propType">AgentAuthentication</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">Country</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">StateId</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">CityId</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>)</div><span class="strong">}</span><br><span class="strong">AgentAuthentication {</span><div><span class="propName ">AgentCode</span> (<span class="propType">integer</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">UserCode</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">UserPassword</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>)</div><span class="strong">}</span>
+  </div>
+
+  <div class="snippet" style="display: block;">
+      <div class="snippet_json" style="display: block;">
+        <pre><code>{
+  "Authentication": {
+    "AgentCode": 0,
+    "UserCode": "string",
+    "UserPassword": "string"
+  },
+  "Country": "string",
+  "StateId": "string",
+  "CityId": "string"
+}</code></pre>
+        <small class="notice" data-sw-translate=""></small>
+      </div>
+    <div class="snippet_xml" style="display: none;">
+      <pre><code>&lt;?xml version="1.0"?&gt;
+&lt;Towns_Req&gt;
+  &lt;Authentication&gt;
+    &lt;AgentCode&gt;1&lt;/AgentCode&gt;
+    &lt;UserCode&gt;string&lt;/UserCode&gt;
+    &lt;UserPassword&gt;string&lt;/UserPassword&gt;
+  &lt;/Authentication&gt;
+  &lt;Country&gt;string&lt;/Country&gt;
+  &lt;StateId&gt;string&lt;/StateId&gt;
+  &lt;CityId&gt;string&lt;/CityId&gt;
+&lt;/Towns_Req&gt;
+</code></pre>
+      <small class="notice" data-sw-translate=""></small>
+    </div>
+  </div>
+</div>
+</div></div></div></span></td>
+</tr><tr><td class="code"><label for="mAuthorization0.7250144999992292">Authorization</label></td>
+<td>
+
+<input class="parameter" minlength="0" name="Authorization" placeholder="" id="mAuthorization0.7250144999992292" type="text" value="">
+</td>
+<td class="markdown"><p>access token</p>
+</td>
+<td>header</td>
+<td>
+	<span class="model-signature">string</span>
+</td>
+</tr></tbody>
+          </table>
+          <div class="sandbox_header">
+            <input class="submit" type="submit" value="Try it out!" data-sw-translate="">
+            <a href="https://tfapi.aysar.com:555/swagger/ui/index#" class="response_hider" style="display:none" data-sw-translate="">Hide Response</a>
+            <span class="response_throbber" style="display:none"></span>
+          </div>
+        </form>
+        <div class="response" style="display:none">
+          <h4 class="curl">Curl</h4>
+          <div class="block curl"></div>
+          <h4 data-sw-translate="">Request URL</h4>
+          <div class="block request_url"></div>
+          <h4 data-sw-translate="">Response Body</h4>
+          <div class="block response_body"></div>
+          <h4 data-sw-translate="">Response Code</h4>
+          <div class="block response_code"></div>
+          <h4 data-sw-translate="">Response Headers</h4>
+          <div class="block response_headers"></div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</li><li class="endpoint">  <ul class="operations">
+    <li class="post operation" id="Values_Values_GetIdTypeList">
+      <div class="heading">
+        <h3>
+          <span class="http_method">
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetIdTypeList" class="toggleOperation">post</a>
+          </span>
+          <span class="path">
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetIdTypeList" class="toggleOperation ">/api/GetIdTypeList</a>
+          </span>
+        </h3>
+        <ul class="options">
+          <li>
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetIdTypeList" class="toggleOperation"><span class="markdown"></span></a>
+          </li>
+        </ul>
+      </div>
+      <div class="content" id="Values_Values_GetIdTypeList_content" style="display:none">
+          <div class="response-class">
+            <h4><span data-sw-translate="">Response Class</span> (<span data-sw-translate="">Status</span> 200)</h4>
+              <div class="markdown"><p>OK</p>
+</div>
+            <p><span class="model-signature"><div>
+<div>
+<ul class="signature-nav">
+  <li><a class="description-link" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Model</a></li>
+  <li><a class="snippet-link selected" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Example Value</a></li>
+</ul>
+<div>
+
+<div class="signature-container">
+  <div class="description" style="display: none;">
+      <span class="strong">Inline Model {</span><span class="strong">}</span>
+  </div>
+
+  <div class="snippet" style="display: block;">
+      <div class="snippet_json" style="display: block;">
+        <pre><code>{}</code></pre>
+        
+      </div>
+    <div class="snippet_xml" style="display: none;">
+      <pre><code>&lt;?xml version="1.0"?&gt;
+&lt;!-- invalid XML --&gt;
+</code></pre>
+      
+    </div>
+  </div>
+</div>
+</div></div></div></span></p>
+            <br>
+            <div class="response-content-type"><div><label data-sw-translate="" for="rct0.044061598992057194">Response Content Type</label>
+<select name="responseContentType" id="rct0.044061598992057194">
+  <option value="application/json">application/json</option>
+  <option value="text/json">text/json</option>
+  <option value="application/xml">application/xml</option>
+  <option value="text/xml">text/xml</option>
+</select>
+</div></div>
+            </div>
+
+
+        <form accept-charset="UTF-8" class="sandbox">
+          <div style="margin:0;padding:0;display:inline"></div>
+          <h4 data-sw-translate="">Parameters</h4>
+          <table class="fullwidth parameters">
+          <thead>
+            <tr>
+            <th style="width: 100px; max-width: 100px" data-sw-translate="">Parameter</th>
+            <th style="width: 310px; max-width: 310px" data-sw-translate="">Value</th>
+            <th style="width: 200px; max-width: 200px" data-sw-translate="">Description</th>
+            <th style="width: 100px; max-width: 100px" data-sw-translate="">Parameter Type</th>
+            <th style="width: 220px; max-width: 230px" data-sw-translate="">Data Type</th>
+            </tr>
+          </thead>
+          <tbody class="operation-params">
+
+          <tr><td class="code required"><label for="mAuthentication0.5557902215614718">Authentication</label></td>
+<td>
+				<textarea class="body-textarea required" placeholder="(required)" name="Authentication" id="mAuthentication0.5557902215614718"></textarea>
+				<div class="editor_holder"></div>
+				<br>
+				<div class="parameter-content-type"><div><label for="pct0.3546326010376464" data-sw-translate="">Parameter content type:</label>
+<select name="parameterContentType" id="pct0.3546326010376464">
+  <option value="application/json">application/json</option>
+  <option value="text/json">text/json</option>
+  <option value="application/xml">application/xml</option>
+  <option value="text/xml">text/xml</option>
+  <option value="application/x-www-form-urlencoded">application/x-www-form-urlencoded</option>
+</select>
+</div></div>
+</td>
+<td>
+	<strong><span class="markdown"></span></strong>
+</td>
+<td>body</td>
+<td><span class="model-signature"><div>
+<div>
+<ul class="signature-nav">
+  <li><a class="description-link" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Model</a></li>
+  <li><a class="snippet-link selected" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Example Value</a></li>
+</ul>
+<div>
+
+<div class="signature-container">
+  <div class="description" style="display: none;">
+      <span class="strong">AgentAuthentication {</span><div><span class="propName ">AgentCode</span> (<span class="propType">integer</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">UserCode</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">UserPassword</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>)</div><span class="strong">}</span>
+  </div>
+
+  <div class="snippet" style="display: block;">
+      <div class="snippet_json" style="display: block;">
+        <pre><code>{
+  "AgentCode": 0,
+  "UserCode": "string",
+  "UserPassword": "string"
+}</code></pre>
+        <small class="notice" data-sw-translate=""></small>
+      </div>
+    <div class="snippet_xml" style="display: none;">
+      <pre><code>&lt;?xml version="1.0"?&gt;
+&lt;AgentAuthentication&gt;
+  &lt;AgentCode&gt;1&lt;/AgentCode&gt;
+  &lt;UserCode&gt;string&lt;/UserCode&gt;
+  &lt;UserPassword&gt;string&lt;/UserPassword&gt;
+&lt;/AgentAuthentication&gt;
+</code></pre>
+      <small class="notice" data-sw-translate=""></small>
+    </div>
+  </div>
+</div>
+</div></div></div></span></td>
+</tr><tr><td class="code"><label for="mAuthorization0.5710683198132498">Authorization</label></td>
+<td>
+
+<input class="parameter" minlength="0" name="Authorization" placeholder="" id="mAuthorization0.5710683198132498" type="text" value="">
+</td>
+<td class="markdown"><p>access token</p>
+</td>
+<td>header</td>
+<td>
+	<span class="model-signature">string</span>
+</td>
+</tr></tbody>
+          </table>
+          <div class="sandbox_header">
+            <input class="submit" type="submit" value="Try it out!" data-sw-translate="">
+            <a href="https://tfapi.aysar.com:555/swagger/ui/index#" class="response_hider" style="display:none" data-sw-translate="">Hide Response</a>
+            <span class="response_throbber" style="display:none"></span>
+          </div>
+        </form>
+        <div class="response" style="display:none">
+          <h4 class="curl">Curl</h4>
+          <div class="block curl"></div>
+          <h4 data-sw-translate="">Request URL</h4>
+          <div class="block request_url"></div>
+          <h4 data-sw-translate="">Response Body</h4>
+          <div class="block response_body"></div>
+          <h4 data-sw-translate="">Response Code</h4>
+          <div class="block response_code"></div>
+          <h4 data-sw-translate="">Response Headers</h4>
+          <div class="block response_headers"></div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</li><li class="endpoint">  <ul class="operations">
+    <li class="post operation" id="Values_Values_GetRemittancePurposes">
+      <div class="heading">
+        <h3>
+          <span class="http_method">
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetRemittancePurposes" class="toggleOperation">post</a>
+          </span>
+          <span class="path">
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetRemittancePurposes" class="toggleOperation ">/api/GetRemittancePurposes</a>
+          </span>
+        </h3>
+        <ul class="options">
+          <li>
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetRemittancePurposes" class="toggleOperation"><span class="markdown"></span></a>
+          </li>
+        </ul>
+      </div>
+      <div class="content" id="Values_Values_GetRemittancePurposes_content" style="display:none">
+          <div class="response-class">
+            <h4><span data-sw-translate="">Response Class</span> (<span data-sw-translate="">Status</span> 200)</h4>
+              <div class="markdown"><p>OK</p>
+</div>
+            <p><span class="model-signature"><div>
+<div>
+<ul class="signature-nav">
+  <li><a class="description-link" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Model</a></li>
+  <li><a class="snippet-link selected" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Example Value</a></li>
+</ul>
+<div>
+
+<div class="signature-container">
+  <div class="description" style="display: none;">
+      <span class="strong">Inline Model {</span><span class="strong">}</span>
+  </div>
+
+  <div class="snippet" style="display: block;">
+      <div class="snippet_json" style="display: block;">
+        <pre><code>{}</code></pre>
+        
+      </div>
+    <div class="snippet_xml" style="display: none;">
+      <pre><code>&lt;?xml version="1.0"?&gt;
+&lt;!-- invalid XML --&gt;
+</code></pre>
+      
+    </div>
+  </div>
+</div>
+</div></div></div></span></p>
+            <br>
+            <div class="response-content-type"><div><label data-sw-translate="" for="rct0.9821141480077167">Response Content Type</label>
+<select name="responseContentType" id="rct0.9821141480077167">
+  <option value="application/json">application/json</option>
+  <option value="text/json">text/json</option>
+  <option value="application/xml">application/xml</option>
+  <option value="text/xml">text/xml</option>
+</select>
+</div></div>
+            </div>
+
+
+        <form accept-charset="UTF-8" class="sandbox">
+          <div style="margin:0;padding:0;display:inline"></div>
+          <h4 data-sw-translate="">Parameters</h4>
+          <table class="fullwidth parameters">
+          <thead>
+            <tr>
+            <th style="width: 100px; max-width: 100px" data-sw-translate="">Parameter</th>
+            <th style="width: 310px; max-width: 310px" data-sw-translate="">Value</th>
+            <th style="width: 200px; max-width: 200px" data-sw-translate="">Description</th>
+            <th style="width: 100px; max-width: 100px" data-sw-translate="">Parameter Type</th>
+            <th style="width: 220px; max-width: 230px" data-sw-translate="">Data Type</th>
+            </tr>
+          </thead>
+          <tbody class="operation-params">
+
+          <tr><td class="code required"><label for="mAuthentication0.38535504498573014">Authentication</label></td>
+<td>
+				<textarea class="body-textarea required" placeholder="(required)" name="Authentication" id="mAuthentication0.38535504498573014"></textarea>
+				<div class="editor_holder"></div>
+				<br>
+				<div class="parameter-content-type"><div><label for="pct0.5023607133617756" data-sw-translate="">Parameter content type:</label>
+<select name="parameterContentType" id="pct0.5023607133617756">
+  <option value="application/json">application/json</option>
+  <option value="text/json">text/json</option>
+  <option value="application/xml">application/xml</option>
+  <option value="text/xml">text/xml</option>
+  <option value="application/x-www-form-urlencoded">application/x-www-form-urlencoded</option>
+</select>
+</div></div>
+</td>
+<td>
+	<strong><span class="markdown"></span></strong>
+</td>
+<td>body</td>
+<td><span class="model-signature"><div>
+<div>
+<ul class="signature-nav">
+  <li><a class="description-link" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Model</a></li>
+  <li><a class="snippet-link selected" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Example Value</a></li>
+</ul>
+<div>
+
+<div class="signature-container">
+  <div class="description" style="display: none;">
+      <span class="strong">AgentAuthentication {</span><div><span class="propName ">AgentCode</span> (<span class="propType">integer</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">UserCode</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">UserPassword</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>)</div><span class="strong">}</span>
+  </div>
+
+  <div class="snippet" style="display: block;">
+      <div class="snippet_json" style="display: block;">
+        <pre><code>{
+  "AgentCode": 0,
+  "UserCode": "string",
+  "UserPassword": "string"
+}</code></pre>
+        <small class="notice" data-sw-translate=""></small>
+      </div>
+    <div class="snippet_xml" style="display: none;">
+      <pre><code>&lt;?xml version="1.0"?&gt;
+&lt;AgentAuthentication&gt;
+  &lt;AgentCode&gt;1&lt;/AgentCode&gt;
+  &lt;UserCode&gt;string&lt;/UserCode&gt;
+  &lt;UserPassword&gt;string&lt;/UserPassword&gt;
+&lt;/AgentAuthentication&gt;
+</code></pre>
+      <small class="notice" data-sw-translate=""></small>
+    </div>
+  </div>
+</div>
+</div></div></div></span></td>
+</tr><tr><td class="code"><label for="mAuthorization0.06930469884824375">Authorization</label></td>
+<td>
+
+<input class="parameter" minlength="0" name="Authorization" placeholder="" id="mAuthorization0.06930469884824375" type="text" value="">
+</td>
+<td class="markdown"><p>access token</p>
+</td>
+<td>header</td>
+<td>
+	<span class="model-signature">string</span>
+</td>
+</tr></tbody>
+          </table>
+          <div class="sandbox_header">
+            <input class="submit" type="submit" value="Try it out!" data-sw-translate="">
+            <a href="https://tfapi.aysar.com:555/swagger/ui/index#" class="response_hider" style="display:none" data-sw-translate="">Hide Response</a>
+            <span class="response_throbber" style="display:none"></span>
+          </div>
+        </form>
+        <div class="response" style="display:none">
+          <h4 class="curl">Curl</h4>
+          <div class="block curl"></div>
+          <h4 data-sw-translate="">Request URL</h4>
+          <div class="block request_url"></div>
+          <h4 data-sw-translate="">Response Body</h4>
+          <div class="block response_body"></div>
+          <h4 data-sw-translate="">Response Code</h4>
+          <div class="block response_code"></div>
+          <h4 data-sw-translate="">Response Headers</h4>
+          <div class="block response_headers"></div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</li><li class="endpoint">  <ul class="operations">
+    <li class="post operation" id="Values_Values_GetOccupationList">
+      <div class="heading">
+        <h3>
+          <span class="http_method">
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetOccupationList" class="toggleOperation">post</a>
+          </span>
+          <span class="path">
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetOccupationList" class="toggleOperation ">/api/GetOccupationList</a>
+          </span>
+        </h3>
+        <ul class="options">
+          <li>
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetOccupationList" class="toggleOperation"><span class="markdown"></span></a>
+          </li>
+        </ul>
+      </div>
+      <div class="content" id="Values_Values_GetOccupationList_content" style="display:none">
+          <div class="response-class">
+            <h4><span data-sw-translate="">Response Class</span> (<span data-sw-translate="">Status</span> 200)</h4>
+              <div class="markdown"><p>OK</p>
+</div>
+            <p><span class="model-signature"><div>
+<div>
+<ul class="signature-nav">
+  <li><a class="description-link" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Model</a></li>
+  <li><a class="snippet-link selected" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Example Value</a></li>
+</ul>
+<div>
+
+<div class="signature-container">
+  <div class="description" style="display: none;">
+      <span class="strong">Inline Model {</span><span class="strong">}</span>
+  </div>
+
+  <div class="snippet" style="display: block;">
+      <div class="snippet_json" style="display: block;">
+        <pre><code>{}</code></pre>
+        
+      </div>
+    <div class="snippet_xml" style="display: none;">
+      <pre><code>&lt;?xml version="1.0"?&gt;
+&lt;!-- invalid XML --&gt;
+</code></pre>
+      
+    </div>
+  </div>
+</div>
+</div></div></div></span></p>
+            <br>
+            <div class="response-content-type"><div><label data-sw-translate="" for="rct0.8827680630082837">Response Content Type</label>
+<select name="responseContentType" id="rct0.8827680630082837">
+  <option value="application/json">application/json</option>
+  <option value="text/json">text/json</option>
+  <option value="application/xml">application/xml</option>
+  <option value="text/xml">text/xml</option>
+</select>
+</div></div>
+            </div>
+
+
+        <form accept-charset="UTF-8" class="sandbox">
+          <div style="margin:0;padding:0;display:inline"></div>
+          <h4 data-sw-translate="">Parameters</h4>
+          <table class="fullwidth parameters">
+          <thead>
+            <tr>
+            <th style="width: 100px; max-width: 100px" data-sw-translate="">Parameter</th>
+            <th style="width: 310px; max-width: 310px" data-sw-translate="">Value</th>
+            <th style="width: 200px; max-width: 200px" data-sw-translate="">Description</th>
+            <th style="width: 100px; max-width: 100px" data-sw-translate="">Parameter Type</th>
+            <th style="width: 220px; max-width: 230px" data-sw-translate="">Data Type</th>
+            </tr>
+          </thead>
+          <tbody class="operation-params">
+
+          <tr><td class="code required"><label for="mAuthentication0.2885835636778096">Authentication</label></td>
+<td>
+				<textarea class="body-textarea required" placeholder="(required)" name="Authentication" id="mAuthentication0.2885835636778096"></textarea>
+				<div class="editor_holder"></div>
+				<br>
+				<div class="parameter-content-type"><div><label for="pct0.20773608852311698" data-sw-translate="">Parameter content type:</label>
+<select name="parameterContentType" id="pct0.20773608852311698">
+  <option value="application/json">application/json</option>
+  <option value="text/json">text/json</option>
+  <option value="application/xml">application/xml</option>
+  <option value="text/xml">text/xml</option>
+  <option value="application/x-www-form-urlencoded">application/x-www-form-urlencoded</option>
+</select>
+</div></div>
+</td>
+<td>
+	<strong><span class="markdown"></span></strong>
+</td>
+<td>body</td>
+<td><span class="model-signature"><div>
+<div>
+<ul class="signature-nav">
+  <li><a class="description-link" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Model</a></li>
+  <li><a class="snippet-link selected" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Example Value</a></li>
+</ul>
+<div>
+
+<div class="signature-container">
+  <div class="description" style="display: none;">
+      <span class="strong">AgentAuthentication {</span><div><span class="propName ">AgentCode</span> (<span class="propType">integer</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">UserCode</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">UserPassword</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>)</div><span class="strong">}</span>
+  </div>
+
+  <div class="snippet" style="display: block;">
+      <div class="snippet_json" style="display: block;">
+        <pre><code>{
+  "AgentCode": 0,
+  "UserCode": "string",
+  "UserPassword": "string"
+}</code></pre>
+        <small class="notice" data-sw-translate=""></small>
+      </div>
+    <div class="snippet_xml" style="display: none;">
+      <pre><code>&lt;?xml version="1.0"?&gt;
+&lt;AgentAuthentication&gt;
+  &lt;AgentCode&gt;1&lt;/AgentCode&gt;
+  &lt;UserCode&gt;string&lt;/UserCode&gt;
+  &lt;UserPassword&gt;string&lt;/UserPassword&gt;
+&lt;/AgentAuthentication&gt;
+</code></pre>
+      <small class="notice" data-sw-translate=""></small>
+    </div>
+  </div>
+</div>
+</div></div></div></span></td>
+</tr><tr><td class="code"><label for="mAuthorization0.02227359706952403">Authorization</label></td>
+<td>
+
+<input class="parameter" minlength="0" name="Authorization" placeholder="" id="mAuthorization0.02227359706952403" type="text" value="">
+</td>
+<td class="markdown"><p>access token</p>
+</td>
+<td>header</td>
+<td>
+	<span class="model-signature">string</span>
+</td>
+</tr></tbody>
+          </table>
+          <div class="sandbox_header">
+            <input class="submit" type="submit" value="Try it out!" data-sw-translate="">
+            <a href="https://tfapi.aysar.com:555/swagger/ui/index#" class="response_hider" style="display:none" data-sw-translate="">Hide Response</a>
+            <span class="response_throbber" style="display:none"></span>
+          </div>
+        </form>
+        <div class="response" style="display:none">
+          <h4 class="curl">Curl</h4>
+          <div class="block curl"></div>
+          <h4 data-sw-translate="">Request URL</h4>
+          <div class="block request_url"></div>
+          <h4 data-sw-translate="">Response Body</h4>
+          <div class="block response_body"></div>
+          <h4 data-sw-translate="">Response Code</h4>
+          <div class="block response_code"></div>
+          <h4 data-sw-translate="">Response Headers</h4>
+          <div class="block response_headers"></div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</li><li class="endpoint">  <ul class="operations">
+    <li class="post operation" id="Values_Values_GetRelationTypeList">
+      <div class="heading">
+        <h3>
+          <span class="http_method">
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetRelationTypeList" class="toggleOperation">post</a>
+          </span>
+          <span class="path">
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetRelationTypeList" class="toggleOperation ">/api/GetRelationTypeList</a>
+          </span>
+        </h3>
+        <ul class="options">
+          <li>
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetRelationTypeList" class="toggleOperation"><span class="markdown"></span></a>
+          </li>
+        </ul>
+      </div>
+      <div class="content" id="Values_Values_GetRelationTypeList_content" style="display:none">
+          <div class="response-class">
+            <h4><span data-sw-translate="">Response Class</span> (<span data-sw-translate="">Status</span> 200)</h4>
+              <div class="markdown"><p>OK</p>
+</div>
+            <p><span class="model-signature"><div>
+<div>
+<ul class="signature-nav">
+  <li><a class="description-link" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Model</a></li>
+  <li><a class="snippet-link selected" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Example Value</a></li>
+</ul>
+<div>
+
+<div class="signature-container">
+  <div class="description" style="display: none;">
+      <span class="strong">Inline Model {</span><span class="strong">}</span>
+  </div>
+
+  <div class="snippet" style="display: block;">
+      <div class="snippet_json" style="display: block;">
+        <pre><code>{}</code></pre>
+        
+      </div>
+    <div class="snippet_xml" style="display: none;">
+      <pre><code>&lt;?xml version="1.0"?&gt;
+&lt;!-- invalid XML --&gt;
+</code></pre>
+      
+    </div>
+  </div>
+</div>
+</div></div></div></span></p>
+            <br>
+            <div class="response-content-type"><div><label data-sw-translate="" for="rct0.5086460573982932">Response Content Type</label>
+<select name="responseContentType" id="rct0.5086460573982932">
+  <option value="application/json">application/json</option>
+  <option value="text/json">text/json</option>
+  <option value="application/xml">application/xml</option>
+  <option value="text/xml">text/xml</option>
+</select>
+</div></div>
+            </div>
+
+
+        <form accept-charset="UTF-8" class="sandbox">
+          <div style="margin:0;padding:0;display:inline"></div>
+          <h4 data-sw-translate="">Parameters</h4>
+          <table class="fullwidth parameters">
+          <thead>
+            <tr>
+            <th style="width: 100px; max-width: 100px" data-sw-translate="">Parameter</th>
+            <th style="width: 310px; max-width: 310px" data-sw-translate="">Value</th>
+            <th style="width: 200px; max-width: 200px" data-sw-translate="">Description</th>
+            <th style="width: 100px; max-width: 100px" data-sw-translate="">Parameter Type</th>
+            <th style="width: 220px; max-width: 230px" data-sw-translate="">Data Type</th>
+            </tr>
+          </thead>
+          <tbody class="operation-params">
+
+          <tr><td class="code required"><label for="mAuthentication0.12181502230910768">Authentication</label></td>
+<td>
+				<textarea class="body-textarea required" placeholder="(required)" name="Authentication" id="mAuthentication0.12181502230910768"></textarea>
+				<div class="editor_holder"></div>
+				<br>
+				<div class="parameter-content-type"><div><label for="pct0.6456157231563735" data-sw-translate="">Parameter content type:</label>
+<select name="parameterContentType" id="pct0.6456157231563735">
+  <option value="application/json">application/json</option>
+  <option value="text/json">text/json</option>
+  <option value="application/xml">application/xml</option>
+  <option value="text/xml">text/xml</option>
+  <option value="application/x-www-form-urlencoded">application/x-www-form-urlencoded</option>
+</select>
+</div></div>
+</td>
+<td>
+	<strong><span class="markdown"></span></strong>
+</td>
+<td>body</td>
+<td><span class="model-signature"><div>
+<div>
+<ul class="signature-nav">
+  <li><a class="description-link" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Model</a></li>
+  <li><a class="snippet-link selected" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Example Value</a></li>
+</ul>
+<div>
+
+<div class="signature-container">
+  <div class="description" style="display: none;">
+      <span class="strong">AgentAuthentication {</span><div><span class="propName ">AgentCode</span> (<span class="propType">integer</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">UserCode</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">UserPassword</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>)</div><span class="strong">}</span>
+  </div>
+
+  <div class="snippet" style="display: block;">
+      <div class="snippet_json" style="display: block;">
+        <pre><code>{
+  "AgentCode": 0,
+  "UserCode": "string",
+  "UserPassword": "string"
+}</code></pre>
+        <small class="notice" data-sw-translate=""></small>
+      </div>
+    <div class="snippet_xml" style="display: none;">
+      <pre><code>&lt;?xml version="1.0"?&gt;
+&lt;AgentAuthentication&gt;
+  &lt;AgentCode&gt;1&lt;/AgentCode&gt;
+  &lt;UserCode&gt;string&lt;/UserCode&gt;
+  &lt;UserPassword&gt;string&lt;/UserPassword&gt;
+&lt;/AgentAuthentication&gt;
+</code></pre>
+      <small class="notice" data-sw-translate=""></small>
+    </div>
+  </div>
+</div>
+</div></div></div></span></td>
+</tr><tr><td class="code"><label for="mAuthorization0.6151486817150968">Authorization</label></td>
+<td>
+
+<input class="parameter" minlength="0" name="Authorization" placeholder="" id="mAuthorization0.6151486817150968" type="text" value="">
+</td>
+<td class="markdown"><p>access token</p>
+</td>
+<td>header</td>
+<td>
+	<span class="model-signature">string</span>
+</td>
+</tr></tbody>
+          </table>
+          <div class="sandbox_header">
+            <input class="submit" type="submit" value="Try it out!" data-sw-translate="">
+            <a href="https://tfapi.aysar.com:555/swagger/ui/index#" class="response_hider" style="display:none" data-sw-translate="">Hide Response</a>
+            <span class="response_throbber" style="display:none"></span>
+          </div>
+        </form>
+        <div class="response" style="display:none">
+          <h4 class="curl">Curl</h4>
+          <div class="block curl"></div>
+          <h4 data-sw-translate="">Request URL</h4>
+          <div class="block request_url"></div>
+          <h4 data-sw-translate="">Response Body</h4>
+          <div class="block response_body"></div>
+          <h4 data-sw-translate="">Response Code</h4>
+          <div class="block response_code"></div>
+          <h4 data-sw-translate="">Response Headers</h4>
+          <div class="block response_headers"></div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</li><li class="endpoint">  <ul class="operations">
+    <li class="post operation" id="Values_Values_GetPaymentmodes">
+      <div class="heading">
+        <h3>
+          <span class="http_method">
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetPaymentmodes" class="toggleOperation">post</a>
+          </span>
+          <span class="path">
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetPaymentmodes" class="toggleOperation ">/api/GetPaymentmodes</a>
+          </span>
+        </h3>
+        <ul class="options">
+          <li>
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetPaymentmodes" class="toggleOperation"><span class="markdown"></span></a>
+          </li>
+        </ul>
+      </div>
+      <div class="content" id="Values_Values_GetPaymentmodes_content" style="display:none">
+          <div class="response-class">
+            <h4><span data-sw-translate="">Response Class</span> (<span data-sw-translate="">Status</span> 200)</h4>
+              <div class="markdown"><p>OK</p>
+</div>
+            <p><span class="model-signature"><div>
+<div>
+<ul class="signature-nav">
+  <li><a class="description-link" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Model</a></li>
+  <li><a class="snippet-link selected" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Example Value</a></li>
+</ul>
+<div>
+
+<div class="signature-container">
+  <div class="description" style="display: none;">
+      <span class="strong">Inline Model {</span><span class="strong">}</span>
+  </div>
+
+  <div class="snippet" style="display: block;">
+      <div class="snippet_json" style="display: block;">
+        <pre><code>{}</code></pre>
+        
+      </div>
+    <div class="snippet_xml" style="display: none;">
+      <pre><code>&lt;?xml version="1.0"?&gt;
+&lt;!-- invalid XML --&gt;
+</code></pre>
+      
+    </div>
+  </div>
+</div>
+</div></div></div></span></p>
+            <br>
+            <div class="response-content-type"><div><label data-sw-translate="" for="rct0.5276824710787293">Response Content Type</label>
+<select name="responseContentType" id="rct0.5276824710787293">
+  <option value="application/json">application/json</option>
+  <option value="text/json">text/json</option>
+  <option value="application/xml">application/xml</option>
+  <option value="text/xml">text/xml</option>
+</select>
+</div></div>
+            </div>
+
+
+        <form accept-charset="UTF-8" class="sandbox">
+          <div style="margin:0;padding:0;display:inline"></div>
+          <h4 data-sw-translate="">Parameters</h4>
+          <table class="fullwidth parameters">
+          <thead>
+            <tr>
+            <th style="width: 100px; max-width: 100px" data-sw-translate="">Parameter</th>
+            <th style="width: 310px; max-width: 310px" data-sw-translate="">Value</th>
+            <th style="width: 200px; max-width: 200px" data-sw-translate="">Description</th>
+            <th style="width: 100px; max-width: 100px" data-sw-translate="">Parameter Type</th>
+            <th style="width: 220px; max-width: 230px" data-sw-translate="">Data Type</th>
+            </tr>
+          </thead>
+          <tbody class="operation-params">
+
+          <tr><td class="code required"><label for="mBody0.6102521888556318">Body</label></td>
+<td>
+				<textarea class="body-textarea required" placeholder="(required)" name="Body" id="mBody0.6102521888556318"></textarea>
+				<div class="editor_holder"></div>
+				<br>
+				<div class="parameter-content-type"><div><label for="pct0.5476810443716473" data-sw-translate="">Parameter content type:</label>
+<select name="parameterContentType" id="pct0.5476810443716473">
+  <option value="application/json">application/json</option>
+  <option value="text/json">text/json</option>
+  <option value="application/xml">application/xml</option>
+  <option value="text/xml">text/xml</option>
+  <option value="application/x-www-form-urlencoded">application/x-www-form-urlencoded</option>
+</select>
+</div></div>
+</td>
+<td>
+	<strong><span class="markdown"></span></strong>
+</td>
+<td>body</td>
+<td><span class="model-signature"><div>
+<div>
+<ul class="signature-nav">
+  <li><a class="description-link" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Model</a></li>
+  <li><a class="snippet-link selected" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Example Value</a></li>
+</ul>
+<div>
+
+<div class="signature-container">
+  <div class="description" style="display: none;">
+      <span class="strong">Paymentmodes_Req {</span><div><span class="propName ">Authentication</span> (<span class="propType">AgentAuthentication</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">Country</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">CityId</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>)</div><span class="strong">}</span><br><span class="strong">AgentAuthentication {</span><div><span class="propName ">AgentCode</span> (<span class="propType">integer</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">UserCode</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">UserPassword</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>)</div><span class="strong">}</span>
+  </div>
+
+  <div class="snippet" style="display: block;">
+      <div class="snippet_json" style="display: block;">
+        <pre><code>{
+  "Authentication": {
+    "AgentCode": 0,
+    "UserCode": "string",
+    "UserPassword": "string"
+  },
+  "Country": "string",
+  "CityId": "string"
+}</code></pre>
+        <small class="notice" data-sw-translate=""></small>
+      </div>
+    <div class="snippet_xml" style="display: none;">
+      <pre><code>&lt;?xml version="1.0"?&gt;
+&lt;Paymentmodes_Req&gt;
+  &lt;Authentication&gt;
+    &lt;AgentCode&gt;1&lt;/AgentCode&gt;
+    &lt;UserCode&gt;string&lt;/UserCode&gt;
+    &lt;UserPassword&gt;string&lt;/UserPassword&gt;
+  &lt;/Authentication&gt;
+  &lt;Country&gt;string&lt;/Country&gt;
+  &lt;CityId&gt;string&lt;/CityId&gt;
+&lt;/Paymentmodes_Req&gt;
+</code></pre>
+      <small class="notice" data-sw-translate=""></small>
+    </div>
+  </div>
+</div>
+</div></div></div></span></td>
+</tr><tr><td class="code"><label for="mAuthorization0.6592921879109261">Authorization</label></td>
+<td>
+
+<input class="parameter" minlength="0" name="Authorization" placeholder="" id="mAuthorization0.6592921879109261" type="text" value="">
+</td>
+<td class="markdown"><p>access token</p>
+</td>
+<td>header</td>
+<td>
+	<span class="model-signature">string</span>
+</td>
+</tr></tbody>
+          </table>
+          <div class="sandbox_header">
+            <input class="submit" type="submit" value="Try it out!" data-sw-translate="">
+            <a href="https://tfapi.aysar.com:555/swagger/ui/index#" class="response_hider" style="display:none" data-sw-translate="">Hide Response</a>
+            <span class="response_throbber" style="display:none"></span>
+          </div>
+        </form>
+        <div class="response" style="display:none">
+          <h4 class="curl">Curl</h4>
+          <div class="block curl"></div>
+          <h4 data-sw-translate="">Request URL</h4>
+          <div class="block request_url"></div>
+          <h4 data-sw-translate="">Response Body</h4>
+          <div class="block response_body"></div>
+          <h4 data-sw-translate="">Response Code</h4>
+          <div class="block response_code"></div>
+          <h4 data-sw-translate="">Response Headers</h4>
+          <div class="block response_headers"></div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</li><li class="endpoint">  <ul class="operations">
+    <li class="post operation" id="Values_Values_GetStatus">
+      <div class="heading">
+        <h3>
+          <span class="http_method">
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetStatus" class="toggleOperation">post</a>
+          </span>
+          <span class="path">
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetStatus" class="toggleOperation ">/api/GetStatus</a>
+          </span>
+        </h3>
+        <ul class="options">
+          <li>
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetStatus" class="toggleOperation"><span class="markdown"></span></a>
+          </li>
+        </ul>
+      </div>
+      <div class="content" id="Values_Values_GetStatus_content" style="display:none">
+          <div class="response-class">
+            <h4><span data-sw-translate="">Response Class</span> (<span data-sw-translate="">Status</span> 200)</h4>
+              <div class="markdown"><p>OK</p>
+</div>
+            <p><span class="model-signature"><div>
+<div>
+<ul class="signature-nav">
+  <li><a class="description-link" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Model</a></li>
+  <li><a class="snippet-link selected" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Example Value</a></li>
+</ul>
+<div>
+
+<div class="signature-container">
+  <div class="description" style="display: none;">
+      <span class="strong">Inline Model {</span><span class="strong">}</span>
+  </div>
+
+  <div class="snippet" style="display: block;">
+      <div class="snippet_json" style="display: block;">
+        <pre><code>{}</code></pre>
+        
+      </div>
+    <div class="snippet_xml" style="display: none;">
+      <pre><code>&lt;?xml version="1.0"?&gt;
+&lt;!-- invalid XML --&gt;
+</code></pre>
+      
+    </div>
+  </div>
+</div>
+</div></div></div></span></p>
+            <br>
+            <div class="response-content-type"><div><label data-sw-translate="" for="rct0.17213997855046603">Response Content Type</label>
+<select name="responseContentType" id="rct0.17213997855046603">
+  <option value="application/json">application/json</option>
+  <option value="text/json">text/json</option>
+  <option value="application/xml">application/xml</option>
+  <option value="text/xml">text/xml</option>
+</select>
+</div></div>
+            </div>
+
+
+        <form accept-charset="UTF-8" class="sandbox">
+          <div style="margin:0;padding:0;display:inline"></div>
+          <h4 data-sw-translate="">Parameters</h4>
+          <table class="fullwidth parameters">
+          <thead>
+            <tr>
+            <th style="width: 100px; max-width: 100px" data-sw-translate="">Parameter</th>
+            <th style="width: 310px; max-width: 310px" data-sw-translate="">Value</th>
+            <th style="width: 200px; max-width: 200px" data-sw-translate="">Description</th>
+            <th style="width: 100px; max-width: 100px" data-sw-translate="">Parameter Type</th>
+            <th style="width: 220px; max-width: 230px" data-sw-translate="">Data Type</th>
+            </tr>
+          </thead>
+          <tbody class="operation-params">
+
+          <tr><td class="code required"><label for="mBody0.892171800938617">Body</label></td>
+<td>
+				<textarea class="body-textarea required" placeholder="(required)" name="Body" id="mBody0.892171800938617"></textarea>
+				<div class="editor_holder"></div>
+				<br>
+				<div class="parameter-content-type"><div><label for="pct0.22263204331477104" data-sw-translate="">Parameter content type:</label>
+<select name="parameterContentType" id="pct0.22263204331477104">
+  <option value="application/json">application/json</option>
+  <option value="text/json">text/json</option>
+  <option value="application/xml">application/xml</option>
+  <option value="text/xml">text/xml</option>
+  <option value="application/x-www-form-urlencoded">application/x-www-form-urlencoded</option>
+</select>
+</div></div>
+</td>
+<td>
+	<strong><span class="markdown"></span></strong>
+</td>
+<td>body</td>
+<td><span class="model-signature"><div>
+<div>
+<ul class="signature-nav">
+  <li><a class="description-link" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Model</a></li>
+  <li><a class="snippet-link selected" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Example Value</a></li>
+</ul>
+<div>
+
+<div class="signature-container">
+  <div class="description" style="display: none;">
+      <span class="strong">GetStatus_Req {</span><div><span class="propName ">Authentication</span> (<span class="propType">AgentAuthentication</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">Tfpin</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>)</div><span class="strong">}</span><br><span class="strong">AgentAuthentication {</span><div><span class="propName ">AgentCode</span> (<span class="propType">integer</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">UserCode</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">UserPassword</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>)</div><span class="strong">}</span>
+  </div>
+
+  <div class="snippet" style="display: block;">
+      <div class="snippet_json" style="display: block;">
+        <pre><code>{
+  "Authentication": {
+    "AgentCode": 0,
+    "UserCode": "string",
+    "UserPassword": "string"
+  },
+  "Tfpin": "string"
+}</code></pre>
+        <small class="notice" data-sw-translate=""></small>
+      </div>
+    <div class="snippet_xml" style="display: none;">
+      <pre><code>&lt;?xml version="1.0"?&gt;
+&lt;GetStatus_Req&gt;
+  &lt;Authentication&gt;
+    &lt;AgentCode&gt;1&lt;/AgentCode&gt;
+    &lt;UserCode&gt;string&lt;/UserCode&gt;
+    &lt;UserPassword&gt;string&lt;/UserPassword&gt;
+  &lt;/Authentication&gt;
+  &lt;Tfpin&gt;string&lt;/Tfpin&gt;
+&lt;/GetStatus_Req&gt;
+</code></pre>
+      <small class="notice" data-sw-translate=""></small>
+    </div>
+  </div>
+</div>
+</div></div></div></span></td>
+</tr><tr><td class="code"><label for="mAuthorization0.7597367907388033">Authorization</label></td>
+<td>
+
+<input class="parameter" minlength="0" name="Authorization" placeholder="" id="mAuthorization0.7597367907388033" type="text" value="">
+</td>
+<td class="markdown"><p>access token</p>
+</td>
+<td>header</td>
+<td>
+	<span class="model-signature">string</span>
+</td>
+</tr></tbody>
+          </table>
+          <div class="sandbox_header">
+            <input class="submit" type="submit" value="Try it out!" data-sw-translate="">
+            <a href="https://tfapi.aysar.com:555/swagger/ui/index#" class="response_hider" style="display:none" data-sw-translate="">Hide Response</a>
+            <span class="response_throbber" style="display:none"></span>
+          </div>
+        </form>
+        <div class="response" style="display:none">
+          <h4 class="curl">Curl</h4>
+          <div class="block curl"></div>
+          <h4 data-sw-translate="">Request URL</h4>
+          <div class="block request_url"></div>
+          <h4 data-sw-translate="">Response Body</h4>
+          <div class="block response_body"></div>
+          <h4 data-sw-translate="">Response Code</h4>
+          <div class="block response_code"></div>
+          <h4 data-sw-translate="">Response Headers</h4>
+          <div class="block response_headers"></div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</li><li class="endpoint">  <ul class="operations">
+    <li class="post operation" id="Values_Values_GetStatusByReferenceNo">
+      <div class="heading">
+        <h3>
+          <span class="http_method">
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetStatusByReferenceNo" class="toggleOperation">post</a>
+          </span>
+          <span class="path">
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetStatusByReferenceNo" class="toggleOperation ">/api/GetStatusByReferenceNo</a>
+          </span>
+        </h3>
+        <ul class="options">
+          <li>
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetStatusByReferenceNo" class="toggleOperation"><span class="markdown"></span></a>
+          </li>
+        </ul>
+      </div>
+      <div class="content" id="Values_Values_GetStatusByReferenceNo_content" style="display:none">
+          <div class="response-class">
+            <h4><span data-sw-translate="">Response Class</span> (<span data-sw-translate="">Status</span> 200)</h4>
+              <div class="markdown"><p>OK</p>
+</div>
+            <p><span class="model-signature"><div>
+<div>
+<ul class="signature-nav">
+  <li><a class="description-link" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Model</a></li>
+  <li><a class="snippet-link selected" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Example Value</a></li>
+</ul>
+<div>
+
+<div class="signature-container">
+  <div class="description" style="display: none;">
+      <span class="strong">Inline Model {</span><span class="strong">}</span>
+  </div>
+
+  <div class="snippet" style="display: block;">
+      <div class="snippet_json" style="display: block;">
+        <pre><code>{}</code></pre>
+        
+      </div>
+    <div class="snippet_xml" style="display: none;">
+      <pre><code>&lt;?xml version="1.0"?&gt;
+&lt;!-- invalid XML --&gt;
+</code></pre>
+      
+    </div>
+  </div>
+</div>
+</div></div></div></span></p>
+            <br>
+            <div class="response-content-type"><div><label data-sw-translate="" for="rct0.9499167376891553">Response Content Type</label>
+<select name="responseContentType" id="rct0.9499167376891553">
+  <option value="application/json">application/json</option>
+  <option value="text/json">text/json</option>
+  <option value="application/xml">application/xml</option>
+  <option value="text/xml">text/xml</option>
+</select>
+</div></div>
+            </div>
+
+
+        <form accept-charset="UTF-8" class="sandbox">
+          <div style="margin:0;padding:0;display:inline"></div>
+          <h4 data-sw-translate="">Parameters</h4>
+          <table class="fullwidth parameters">
+          <thead>
+            <tr>
+            <th style="width: 100px; max-width: 100px" data-sw-translate="">Parameter</th>
+            <th style="width: 310px; max-width: 310px" data-sw-translate="">Value</th>
+            <th style="width: 200px; max-width: 200px" data-sw-translate="">Description</th>
+            <th style="width: 100px; max-width: 100px" data-sw-translate="">Parameter Type</th>
+            <th style="width: 220px; max-width: 230px" data-sw-translate="">Data Type</th>
+            </tr>
+          </thead>
+          <tbody class="operation-params">
+
+          <tr><td class="code required"><label for="mBody0.008645164516052128">Body</label></td>
+<td>
+				<textarea class="body-textarea required" placeholder="(required)" name="Body" id="mBody0.008645164516052128"></textarea>
+				<div class="editor_holder"></div>
+				<br>
+				<div class="parameter-content-type"><div><label for="pct0.42972297924464575" data-sw-translate="">Parameter content type:</label>
+<select name="parameterContentType" id="pct0.42972297924464575">
+  <option value="application/json">application/json</option>
+  <option value="text/json">text/json</option>
+  <option value="application/xml">application/xml</option>
+  <option value="text/xml">text/xml</option>
+  <option value="application/x-www-form-urlencoded">application/x-www-form-urlencoded</option>
+</select>
+</div></div>
+</td>
+<td>
+	<strong><span class="markdown"></span></strong>
+</td>
+<td>body</td>
+<td><span class="model-signature"><div>
+<div>
+<ul class="signature-nav">
+  <li><a class="description-link" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Model</a></li>
+  <li><a class="snippet-link selected" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Example Value</a></li>
+</ul>
+<div>
+
+<div class="signature-container">
+  <div class="description" style="display: none;">
+      <span class="strong">GetStatus_Req {</span><div><span class="propName ">Authentication</span> (<span class="propType">AgentAuthentication</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">Tfpin</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>)</div><span class="strong">}</span><br><span class="strong">AgentAuthentication {</span><div><span class="propName ">AgentCode</span> (<span class="propType">integer</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">UserCode</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">UserPassword</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>)</div><span class="strong">}</span>
+  </div>
+
+  <div class="snippet" style="display: block;">
+      <div class="snippet_json" style="display: block;">
+        <pre><code>{
+  "Authentication": {
+    "AgentCode": 0,
+    "UserCode": "string",
+    "UserPassword": "string"
+  },
+  "Tfpin": "string"
+}</code></pre>
+        <small class="notice" data-sw-translate=""></small>
+      </div>
+    <div class="snippet_xml" style="display: none;">
+      <pre><code>&lt;?xml version="1.0"?&gt;
+&lt;GetStatus_Req&gt;
+  &lt;Authentication&gt;
+    &lt;AgentCode&gt;1&lt;/AgentCode&gt;
+    &lt;UserCode&gt;string&lt;/UserCode&gt;
+    &lt;UserPassword&gt;string&lt;/UserPassword&gt;
+  &lt;/Authentication&gt;
+  &lt;Tfpin&gt;string&lt;/Tfpin&gt;
+&lt;/GetStatus_Req&gt;
+</code></pre>
+      <small class="notice" data-sw-translate=""></small>
+    </div>
+  </div>
+</div>
+</div></div></div></span></td>
+</tr><tr><td class="code"><label for="mAuthorization0.4726553060081986">Authorization</label></td>
+<td>
+
+<input class="parameter" minlength="0" name="Authorization" placeholder="" id="mAuthorization0.4726553060081986" type="text" value="">
+</td>
+<td class="markdown"><p>access token</p>
+</td>
+<td>header</td>
+<td>
+	<span class="model-signature">string</span>
+</td>
+</tr></tbody>
+          </table>
+          <div class="sandbox_header">
+            <input class="submit" type="submit" value="Try it out!" data-sw-translate="">
+            <a href="https://tfapi.aysar.com:555/swagger/ui/index#" class="response_hider" style="display:none" data-sw-translate="">Hide Response</a>
+            <span class="response_throbber" style="display:none"></span>
+          </div>
+        </form>
+        <div class="response" style="display:none">
+          <h4 class="curl">Curl</h4>
+          <div class="block curl"></div>
+          <h4 data-sw-translate="">Request URL</h4>
+          <div class="block request_url"></div>
+          <h4 data-sw-translate="">Response Body</h4>
+          <div class="block response_body"></div>
+          <h4 data-sw-translate="">Response Code</h4>
+          <div class="block response_code"></div>
+          <h4 data-sw-translate="">Response Headers</h4>
+          <div class="block response_headers"></div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</li><li class="endpoint">  <ul class="operations">
+    <li class="post operation" id="Values_Values_GetReceivercurrencies">
+      <div class="heading">
+        <h3>
+          <span class="http_method">
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetReceivercurrencies" class="toggleOperation">post</a>
+          </span>
+          <span class="path">
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetReceivercurrencies" class="toggleOperation ">/api/GetReceivercurrencies</a>
+          </span>
+        </h3>
+        <ul class="options">
+          <li>
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetReceivercurrencies" class="toggleOperation"><span class="markdown"></span></a>
+          </li>
+        </ul>
+      </div>
+      <div class="content" id="Values_Values_GetReceivercurrencies_content" style="display:none">
+          <div class="response-class">
+            <h4><span data-sw-translate="">Response Class</span> (<span data-sw-translate="">Status</span> 200)</h4>
+              <div class="markdown"><p>OK</p>
+</div>
+            <p><span class="model-signature"><div>
+<div>
+<ul class="signature-nav">
+  <li><a class="description-link" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Model</a></li>
+  <li><a class="snippet-link selected" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Example Value</a></li>
+</ul>
+<div>
+
+<div class="signature-container">
+  <div class="description" style="display: none;">
+      <span class="strong">Inline Model {</span><span class="strong">}</span>
+  </div>
+
+  <div class="snippet" style="display: block;">
+      <div class="snippet_json" style="display: block;">
+        <pre><code>{}</code></pre>
+        
+      </div>
+    <div class="snippet_xml" style="display: none;">
+      <pre><code>&lt;?xml version="1.0"?&gt;
+&lt;!-- invalid XML --&gt;
+</code></pre>
+      
+    </div>
+  </div>
+</div>
+</div></div></div></span></p>
+            <br>
+            <div class="response-content-type"><div><label data-sw-translate="" for="rct0.39357491467362626">Response Content Type</label>
+<select name="responseContentType" id="rct0.39357491467362626">
+  <option value="application/json">application/json</option>
+  <option value="text/json">text/json</option>
+  <option value="application/xml">application/xml</option>
+  <option value="text/xml">text/xml</option>
+</select>
+</div></div>
+            </div>
+
+
+        <form accept-charset="UTF-8" class="sandbox">
+          <div style="margin:0;padding:0;display:inline"></div>
+          <h4 data-sw-translate="">Parameters</h4>
+          <table class="fullwidth parameters">
+          <thead>
+            <tr>
+            <th style="width: 100px; max-width: 100px" data-sw-translate="">Parameter</th>
+            <th style="width: 310px; max-width: 310px" data-sw-translate="">Value</th>
+            <th style="width: 200px; max-width: 200px" data-sw-translate="">Description</th>
+            <th style="width: 100px; max-width: 100px" data-sw-translate="">Parameter Type</th>
+            <th style="width: 220px; max-width: 230px" data-sw-translate="">Data Type</th>
+            </tr>
+          </thead>
+          <tbody class="operation-params">
+
+          <tr><td class="code required"><label for="mBody0.43796701980893693">Body</label></td>
+<td>
+				<textarea class="body-textarea required" placeholder="(required)" name="Body" id="mBody0.43796701980893693"></textarea>
+				<div class="editor_holder"></div>
+				<br>
+				<div class="parameter-content-type"><div><label for="pct0.6045953749676349" data-sw-translate="">Parameter content type:</label>
+<select name="parameterContentType" id="pct0.6045953749676349">
+  <option value="application/json">application/json</option>
+  <option value="text/json">text/json</option>
+  <option value="application/xml">application/xml</option>
+  <option value="text/xml">text/xml</option>
+  <option value="application/x-www-form-urlencoded">application/x-www-form-urlencoded</option>
+</select>
+</div></div>
+</td>
+<td>
+	<strong><span class="markdown"></span></strong>
+</td>
+<td>body</td>
+<td><span class="model-signature"><div>
+<div>
+<ul class="signature-nav">
+  <li><a class="description-link" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Model</a></li>
+  <li><a class="snippet-link selected" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Example Value</a></li>
+</ul>
+<div>
+
+<div class="signature-container">
+  <div class="description" style="display: none;">
+      <span class="strong">Receivercurrencies_Req {</span><div><span class="propName ">Authentication</span> (<span class="propType">AgentAuthentication</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">Country</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">StateId</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">CityId</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">TownId</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">PaymentModeId</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>)</div><span class="strong">}</span><br><span class="strong">AgentAuthentication {</span><div><span class="propName ">AgentCode</span> (<span class="propType">integer</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">UserCode</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">UserPassword</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>)</div><span class="strong">}</span>
+  </div>
+
+  <div class="snippet" style="display: block;">
+      <div class="snippet_json" style="display: block;">
+        <pre><code>{
+  "Authentication": {
+    "AgentCode": 0,
+    "UserCode": "string",
+    "UserPassword": "string"
+  },
+  "Country": "string",
+  "StateId": "string",
+  "CityId": "string",
+  "TownId": "string",
+  "PaymentModeId": "string"
+}</code></pre>
+        <small class="notice" data-sw-translate=""></small>
+      </div>
+    <div class="snippet_xml" style="display: none;">
+      <pre><code>&lt;?xml version="1.0"?&gt;
+&lt;Receivercurrencies_Req&gt;
+  &lt;Authentication&gt;
+    &lt;AgentCode&gt;1&lt;/AgentCode&gt;
+    &lt;UserCode&gt;string&lt;/UserCode&gt;
+    &lt;UserPassword&gt;string&lt;/UserPassword&gt;
+  &lt;/Authentication&gt;
+  &lt;Country&gt;string&lt;/Country&gt;
+  &lt;StateId&gt;string&lt;/StateId&gt;
+  &lt;CityId&gt;string&lt;/CityId&gt;
+  &lt;TownId&gt;string&lt;/TownId&gt;
+  &lt;PaymentModeId&gt;string&lt;/PaymentModeId&gt;
+&lt;/Receivercurrencies_Req&gt;
+</code></pre>
+      <small class="notice" data-sw-translate=""></small>
+    </div>
+  </div>
+</div>
+</div></div></div></span></td>
+</tr><tr><td class="code"><label for="mAuthorization0.9957684087846477">Authorization</label></td>
+<td>
+
+<input class="parameter" minlength="0" name="Authorization" placeholder="" id="mAuthorization0.9957684087846477" type="text" value="">
+</td>
+<td class="markdown"><p>access token</p>
+</td>
+<td>header</td>
+<td>
+	<span class="model-signature">string</span>
+</td>
+</tr></tbody>
+          </table>
+          <div class="sandbox_header">
+            <input class="submit" type="submit" value="Try it out!" data-sw-translate="">
+            <a href="https://tfapi.aysar.com:555/swagger/ui/index#" class="response_hider" style="display:none" data-sw-translate="">Hide Response</a>
+            <span class="response_throbber" style="display:none"></span>
+          </div>
+        </form>
+        <div class="response" style="display:none">
+          <h4 class="curl">Curl</h4>
+          <div class="block curl"></div>
+          <h4 data-sw-translate="">Request URL</h4>
+          <div class="block request_url"></div>
+          <h4 data-sw-translate="">Response Body</h4>
+          <div class="block response_body"></div>
+          <h4 data-sw-translate="">Response Code</h4>
+          <div class="block response_code"></div>
+          <h4 data-sw-translate="">Response Headers</h4>
+          <div class="block response_headers"></div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</li><li class="endpoint">  <ul class="operations">
+    <li class="post operation" id="Values_Values_GetPayers">
+      <div class="heading">
+        <h3>
+          <span class="http_method">
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetPayers" class="toggleOperation">post</a>
+          </span>
+          <span class="path">
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetPayers" class="toggleOperation ">/api/GetPayers</a>
+          </span>
+        </h3>
+        <ul class="options">
+          <li>
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetPayers" class="toggleOperation"><span class="markdown"></span></a>
+          </li>
+        </ul>
+      </div>
+      <div class="content" id="Values_Values_GetPayers_content" style="display:none">
+          <div class="response-class">
+            <h4><span data-sw-translate="">Response Class</span> (<span data-sw-translate="">Status</span> 200)</h4>
+              <div class="markdown"><p>OK</p>
+</div>
+            <p><span class="model-signature"><div>
+<div>
+<ul class="signature-nav">
+  <li><a class="description-link" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Model</a></li>
+  <li><a class="snippet-link selected" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Example Value</a></li>
+</ul>
+<div>
+
+<div class="signature-container">
+  <div class="description" style="display: none;">
+      <span class="strong">Inline Model {</span><span class="strong">}</span>
+  </div>
+
+  <div class="snippet" style="display: block;">
+      <div class="snippet_json" style="display: block;">
+        <pre><code>{}</code></pre>
+        
+      </div>
+    <div class="snippet_xml" style="display: none;">
+      <pre><code>&lt;?xml version="1.0"?&gt;
+&lt;!-- invalid XML --&gt;
+</code></pre>
+      
+    </div>
+  </div>
+</div>
+</div></div></div></span></p>
+            <br>
+            <div class="response-content-type"><div><label data-sw-translate="" for="rct0.45335041835701473">Response Content Type</label>
+<select name="responseContentType" id="rct0.45335041835701473">
+  <option value="application/json">application/json</option>
+  <option value="text/json">text/json</option>
+  <option value="application/xml">application/xml</option>
+  <option value="text/xml">text/xml</option>
+</select>
+</div></div>
+            </div>
+
+
+        <form accept-charset="UTF-8" class="sandbox">
+          <div style="margin:0;padding:0;display:inline"></div>
+          <h4 data-sw-translate="">Parameters</h4>
+          <table class="fullwidth parameters">
+          <thead>
+            <tr>
+            <th style="width: 100px; max-width: 100px" data-sw-translate="">Parameter</th>
+            <th style="width: 310px; max-width: 310px" data-sw-translate="">Value</th>
+            <th style="width: 200px; max-width: 200px" data-sw-translate="">Description</th>
+            <th style="width: 100px; max-width: 100px" data-sw-translate="">Parameter Type</th>
+            <th style="width: 220px; max-width: 230px" data-sw-translate="">Data Type</th>
+            </tr>
+          </thead>
+          <tbody class="operation-params">
+
+          <tr><td class="code required"><label for="mBody0.009918100373892624">Body</label></td>
+<td>
+				<textarea class="body-textarea required" placeholder="(required)" name="Body" id="mBody0.009918100373892624"></textarea>
+				<div class="editor_holder"></div>
+				<br>
+				<div class="parameter-content-type"><div><label for="pct0.843727544636806" data-sw-translate="">Parameter content type:</label>
+<select name="parameterContentType" id="pct0.843727544636806">
+  <option value="application/json">application/json</option>
+  <option value="text/json">text/json</option>
+  <option value="application/xml">application/xml</option>
+  <option value="text/xml">text/xml</option>
+  <option value="application/x-www-form-urlencoded">application/x-www-form-urlencoded</option>
+</select>
+</div></div>
+</td>
+<td>
+	<strong><span class="markdown"></span></strong>
+</td>
+<td>body</td>
+<td><span class="model-signature"><div>
+<div>
+<ul class="signature-nav">
+  <li><a class="description-link" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Model</a></li>
+  <li><a class="snippet-link selected" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Example Value</a></li>
+</ul>
+<div>
+
+<div class="signature-container">
+  <div class="description" style="display: none;">
+      <span class="strong">PayersMasters_Req {</span><div><span class="propName ">Authentication</span> (<span class="propType">AgentAuthentication</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">Country</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">City</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">TownId</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">PaymentModeId</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">payoutCurr</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">BankId</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">PayInCurr</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">RoutingNo</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>)</div><span class="strong">}</span><br><span class="strong">AgentAuthentication {</span><div><span class="propName ">AgentCode</span> (<span class="propType">integer</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">UserCode</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">UserPassword</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>)</div><span class="strong">}</span>
+  </div>
+
+  <div class="snippet" style="display: block;">
+      <div class="snippet_json" style="display: block;">
+        <pre><code>{
+  "Authentication": {
+    "AgentCode": 0,
+    "UserCode": "string",
+    "UserPassword": "string"
+  },
+  "Country": "string",
+  "City": "string",
+  "TownId": "string",
+  "PaymentModeId": "string",
+  "payoutCurr": "string",
+  "BankId": "string",
+  "PayInCurr": "string",
+  "RoutingNo": "string"
+}</code></pre>
+        <small class="notice" data-sw-translate=""></small>
+      </div>
+    <div class="snippet_xml" style="display: none;">
+      <pre><code>&lt;?xml version="1.0"?&gt;
+&lt;PayersMasters_Req&gt;
+  &lt;Authentication&gt;
+    &lt;AgentCode&gt;1&lt;/AgentCode&gt;
+    &lt;UserCode&gt;string&lt;/UserCode&gt;
+    &lt;UserPassword&gt;string&lt;/UserPassword&gt;
+  &lt;/Authentication&gt;
+  &lt;Country&gt;string&lt;/Country&gt;
+  &lt;City&gt;string&lt;/City&gt;
+  &lt;TownId&gt;string&lt;/TownId&gt;
+  &lt;PaymentModeId&gt;string&lt;/PaymentModeId&gt;
+  &lt;payoutCurr&gt;string&lt;/payoutCurr&gt;
+  &lt;BankId&gt;string&lt;/BankId&gt;
+  &lt;PayInCurr&gt;string&lt;/PayInCurr&gt;
+  &lt;RoutingNo&gt;string&lt;/RoutingNo&gt;
+&lt;/PayersMasters_Req&gt;
+</code></pre>
+      <small class="notice" data-sw-translate=""></small>
+    </div>
+  </div>
+</div>
+</div></div></div></span></td>
+</tr><tr><td class="code"><label for="mAuthorization0.41039976313350235">Authorization</label></td>
+<td>
+
+<input class="parameter" minlength="0" name="Authorization" placeholder="" id="mAuthorization0.41039976313350235" type="text" value="">
+</td>
+<td class="markdown"><p>access token</p>
+</td>
+<td>header</td>
+<td>
+	<span class="model-signature">string</span>
+</td>
+</tr></tbody>
+          </table>
+          <div class="sandbox_header">
+            <input class="submit" type="submit" value="Try it out!" data-sw-translate="">
+            <a href="https://tfapi.aysar.com:555/swagger/ui/index#" class="response_hider" style="display:none" data-sw-translate="">Hide Response</a>
+            <span class="response_throbber" style="display:none"></span>
+          </div>
+        </form>
+        <div class="response" style="display:none">
+          <h4 class="curl">Curl</h4>
+          <div class="block curl"></div>
+          <h4 data-sw-translate="">Request URL</h4>
+          <div class="block request_url"></div>
+          <h4 data-sw-translate="">Response Body</h4>
+          <div class="block response_body"></div>
+          <h4 data-sw-translate="">Response Code</h4>
+          <div class="block response_code"></div>
+          <h4 data-sw-translate="">Response Headers</h4>
+          <div class="block response_headers"></div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</li><li class="endpoint">  <ul class="operations">
+    <li class="post operation" id="Values_Values_GetBanks">
+      <div class="heading">
+        <h3>
+          <span class="http_method">
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetBanks" class="toggleOperation">post</a>
+          </span>
+          <span class="path">
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetBanks" class="toggleOperation ">/api/GetBanks</a>
+          </span>
+        </h3>
+        <ul class="options">
+          <li>
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetBanks" class="toggleOperation"><span class="markdown"></span></a>
+          </li>
+        </ul>
+      </div>
+      <div class="content" id="Values_Values_GetBanks_content" style="display:none">
+          <div class="response-class">
+            <h4><span data-sw-translate="">Response Class</span> (<span data-sw-translate="">Status</span> 200)</h4>
+              <div class="markdown"><p>OK</p>
+</div>
+            <p><span class="model-signature"><div>
+<div>
+<ul class="signature-nav">
+  <li><a class="description-link" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Model</a></li>
+  <li><a class="snippet-link selected" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Example Value</a></li>
+</ul>
+<div>
+
+<div class="signature-container">
+  <div class="description" style="display: none;">
+      <span class="strong">Inline Model {</span><span class="strong">}</span>
+  </div>
+
+  <div class="snippet" style="display: block;">
+      <div class="snippet_json" style="display: block;">
+        <pre><code>{}</code></pre>
+        
+      </div>
+    <div class="snippet_xml" style="display: none;">
+      <pre><code>&lt;?xml version="1.0"?&gt;
+&lt;!-- invalid XML --&gt;
+</code></pre>
+      
+    </div>
+  </div>
+</div>
+</div></div></div></span></p>
+            <br>
+            <div class="response-content-type"><div><label data-sw-translate="" for="rct0.7405796216630631">Response Content Type</label>
+<select name="responseContentType" id="rct0.7405796216630631">
+  <option value="application/json">application/json</option>
+  <option value="text/json">text/json</option>
+  <option value="application/xml">application/xml</option>
+  <option value="text/xml">text/xml</option>
+</select>
+</div></div>
+            </div>
+
+
+        <form accept-charset="UTF-8" class="sandbox">
+          <div style="margin:0;padding:0;display:inline"></div>
+          <h4 data-sw-translate="">Parameters</h4>
+          <table class="fullwidth parameters">
+          <thead>
+            <tr>
+            <th style="width: 100px; max-width: 100px" data-sw-translate="">Parameter</th>
+            <th style="width: 310px; max-width: 310px" data-sw-translate="">Value</th>
+            <th style="width: 200px; max-width: 200px" data-sw-translate="">Description</th>
+            <th style="width: 100px; max-width: 100px" data-sw-translate="">Parameter Type</th>
+            <th style="width: 220px; max-width: 230px" data-sw-translate="">Data Type</th>
+            </tr>
+          </thead>
+          <tbody class="operation-params">
+
+          <tr><td class="code required"><label for="mBody0.7059507361383217">Body</label></td>
+<td>
+				<textarea class="body-textarea required" placeholder="(required)" name="Body" id="mBody0.7059507361383217"></textarea>
+				<div class="editor_holder"></div>
+				<br>
+				<div class="parameter-content-type"><div><label for="pct0.1708849829457595" data-sw-translate="">Parameter content type:</label>
+<select name="parameterContentType" id="pct0.1708849829457595">
+  <option value="application/json">application/json</option>
+  <option value="text/json">text/json</option>
+  <option value="application/xml">application/xml</option>
+  <option value="text/xml">text/xml</option>
+  <option value="application/x-www-form-urlencoded">application/x-www-form-urlencoded</option>
+</select>
+</div></div>
+</td>
+<td>
+	<strong><span class="markdown"></span></strong>
+</td>
+<td>body</td>
+<td><span class="model-signature"><div>
+<div>
+<ul class="signature-nav">
+  <li><a class="description-link" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Model</a></li>
+  <li><a class="snippet-link selected" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Example Value</a></li>
+</ul>
+<div>
+
+<div class="signature-container">
+  <div class="description" style="display: none;">
+      <span class="strong">Banks_Req {</span><div><span class="propName ">Authentication</span> (<span class="propType">AgentAuthentication</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">Country</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">RoutingNumber</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>)</div><span class="strong">}</span><br><span class="strong">AgentAuthentication {</span><div><span class="propName ">AgentCode</span> (<span class="propType">integer</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">UserCode</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">UserPassword</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>)</div><span class="strong">}</span>
+  </div>
+
+  <div class="snippet" style="display: block;">
+      <div class="snippet_json" style="display: block;">
+        <pre><code>{
+  "Authentication": {
+    "AgentCode": 0,
+    "UserCode": "string",
+    "UserPassword": "string"
+  },
+  "Country": "string",
+  "RoutingNumber": "string"
+}</code></pre>
+        <small class="notice" data-sw-translate=""></small>
+      </div>
+    <div class="snippet_xml" style="display: none;">
+      <pre><code>&lt;?xml version="1.0"?&gt;
+&lt;Banks_Req&gt;
+  &lt;Authentication&gt;
+    &lt;AgentCode&gt;1&lt;/AgentCode&gt;
+    &lt;UserCode&gt;string&lt;/UserCode&gt;
+    &lt;UserPassword&gt;string&lt;/UserPassword&gt;
+  &lt;/Authentication&gt;
+  &lt;Country&gt;string&lt;/Country&gt;
+  &lt;RoutingNumber&gt;string&lt;/RoutingNumber&gt;
+&lt;/Banks_Req&gt;
+</code></pre>
+      <small class="notice" data-sw-translate=""></small>
+    </div>
+  </div>
+</div>
+</div></div></div></span></td>
+</tr><tr><td class="code"><label for="mAuthorization0.9484984194108741">Authorization</label></td>
+<td>
+
+<input class="parameter" minlength="0" name="Authorization" placeholder="" id="mAuthorization0.9484984194108741" type="text" value="">
+</td>
+<td class="markdown"><p>access token</p>
+</td>
+<td>header</td>
+<td>
+	<span class="model-signature">string</span>
+</td>
+</tr></tbody>
+          </table>
+          <div class="sandbox_header">
+            <input class="submit" type="submit" value="Try it out!" data-sw-translate="">
+            <a href="https://tfapi.aysar.com:555/swagger/ui/index#" class="response_hider" style="display:none" data-sw-translate="">Hide Response</a>
+            <span class="response_throbber" style="display:none"></span>
+          </div>
+        </form>
+        <div class="response" style="display:none">
+          <h4 class="curl">Curl</h4>
+          <div class="block curl"></div>
+          <h4 data-sw-translate="">Request URL</h4>
+          <div class="block request_url"></div>
+          <h4 data-sw-translate="">Response Body</h4>
+          <div class="block response_body"></div>
+          <h4 data-sw-translate="">Response Code</h4>
+          <div class="block response_code"></div>
+          <h4 data-sw-translate="">Response Headers</h4>
+          <div class="block response_headers"></div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</li><li class="endpoint">  <ul class="operations">
+    <li class="post operation" id="Values_Values_GetPayOut">
+      <div class="heading">
+        <h3>
+          <span class="http_method">
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetPayOut" class="toggleOperation">post</a>
+          </span>
+          <span class="path">
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetPayOut" class="toggleOperation ">/api/GetPayOut</a>
+          </span>
+        </h3>
+        <ul class="options">
+          <li>
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetPayOut" class="toggleOperation"><span class="markdown"></span></a>
+          </li>
+        </ul>
+      </div>
+      <div class="content" id="Values_Values_GetPayOut_content" style="display:none">
+          <div class="response-class">
+            <h4><span data-sw-translate="">Response Class</span> (<span data-sw-translate="">Status</span> 200)</h4>
+              <div class="markdown"><p>OK</p>
+</div>
+            <p><span class="model-signature"><div>
+<div>
+<ul class="signature-nav">
+  <li><a class="description-link" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Model</a></li>
+  <li><a class="snippet-link selected" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Example Value</a></li>
+</ul>
+<div>
+
+<div class="signature-container">
+  <div class="description" style="display: none;">
+      <span class="strong">Inline Model {</span><span class="strong">}</span>
+  </div>
+
+  <div class="snippet" style="display: block;">
+      <div class="snippet_json" style="display: block;">
+        <pre><code>{}</code></pre>
+        
+      </div>
+    <div class="snippet_xml" style="display: none;">
+      <pre><code>&lt;?xml version="1.0"?&gt;
+&lt;!-- invalid XML --&gt;
+</code></pre>
+      
+    </div>
+  </div>
+</div>
+</div></div></div></span></p>
+            <br>
+            <div class="response-content-type"><div><label data-sw-translate="" for="rct0.6410856562389147">Response Content Type</label>
+<select name="responseContentType" id="rct0.6410856562389147">
+  <option value="application/json">application/json</option>
+  <option value="text/json">text/json</option>
+  <option value="application/xml">application/xml</option>
+  <option value="text/xml">text/xml</option>
+</select>
+</div></div>
+            </div>
+
+
+        <form accept-charset="UTF-8" class="sandbox">
+          <div style="margin:0;padding:0;display:inline"></div>
+          <h4 data-sw-translate="">Parameters</h4>
+          <table class="fullwidth parameters">
+          <thead>
+            <tr>
+            <th style="width: 100px; max-width: 100px" data-sw-translate="">Parameter</th>
+            <th style="width: 310px; max-width: 310px" data-sw-translate="">Value</th>
+            <th style="width: 200px; max-width: 200px" data-sw-translate="">Description</th>
+            <th style="width: 100px; max-width: 100px" data-sw-translate="">Parameter Type</th>
+            <th style="width: 220px; max-width: 230px" data-sw-translate="">Data Type</th>
+            </tr>
+          </thead>
+          <tbody class="operation-params">
+
+          <tr><td class="code required"><label for="mBody0.6635586138356167">Body</label></td>
+<td>
+				<textarea class="body-textarea required" placeholder="(required)" name="Body" id="mBody0.6635586138356167"></textarea>
+				<div class="editor_holder"></div>
+				<br>
+				<div class="parameter-content-type"><div><label for="pct0.7562613246747949" data-sw-translate="">Parameter content type:</label>
+<select name="parameterContentType" id="pct0.7562613246747949">
+  <option value="application/json">application/json</option>
+  <option value="text/json">text/json</option>
+  <option value="application/xml">application/xml</option>
+  <option value="text/xml">text/xml</option>
+  <option value="application/x-www-form-urlencoded">application/x-www-form-urlencoded</option>
+</select>
+</div></div>
+</td>
+<td>
+	<strong><span class="markdown"></span></strong>
+</td>
+<td>body</td>
+<td><span class="model-signature"><div>
+<div>
+<ul class="signature-nav">
+  <li><a class="description-link" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Model</a></li>
+  <li><a class="snippet-link selected" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Example Value</a></li>
+</ul>
+<div>
+
+<div class="signature-container">
+  <div class="description" style="display: none;">
+      <span class="strong">PayOut_Req {</span><div><span class="propName ">Authentication</span> (<span class="propType">AgentAuthentication</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">Country</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">City</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">Payerid</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">Paymentmodeid</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">receivecurrencyisocode</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">sourcecurrencyisocode</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">payingagentid</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">sentamount</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>)</div><span class="strong">}</span><br><span class="strong">AgentAuthentication {</span><div><span class="propName ">AgentCode</span> (<span class="propType">integer</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">UserCode</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">UserPassword</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>)</div><span class="strong">}</span>
+  </div>
+
+  <div class="snippet" style="display: block;">
+      <div class="snippet_json" style="display: block;">
+        <pre><code>{
+  "Authentication": {
+    "AgentCode": 0,
+    "UserCode": "string",
+    "UserPassword": "string"
+  },
+  "Country": "string",
+  "City": "string",
+  "Payerid": "string",
+  "Paymentmodeid": "string",
+  "receivecurrencyisocode": "string",
+  "sourcecurrencyisocode": "string",
+  "payingagentid": "string",
+  "sentamount": "string"
+}</code></pre>
+        <small class="notice" data-sw-translate=""></small>
+      </div>
+    <div class="snippet_xml" style="display: none;">
+      <pre><code>&lt;?xml version="1.0"?&gt;
+&lt;PayOut_Req&gt;
+  &lt;Authentication&gt;
+    &lt;AgentCode&gt;1&lt;/AgentCode&gt;
+    &lt;UserCode&gt;string&lt;/UserCode&gt;
+    &lt;UserPassword&gt;string&lt;/UserPassword&gt;
+  &lt;/Authentication&gt;
+  &lt;Country&gt;string&lt;/Country&gt;
+  &lt;City&gt;string&lt;/City&gt;
+  &lt;Payerid&gt;string&lt;/Payerid&gt;
+  &lt;Paymentmodeid&gt;string&lt;/Paymentmodeid&gt;
+  &lt;receivecurrencyisocode&gt;string&lt;/receivecurrencyisocode&gt;
+  &lt;sourcecurrencyisocode&gt;string&lt;/sourcecurrencyisocode&gt;
+  &lt;payingagentid&gt;string&lt;/payingagentid&gt;
+  &lt;sentamount&gt;string&lt;/sentamount&gt;
+&lt;/PayOut_Req&gt;
+</code></pre>
+      <small class="notice" data-sw-translate=""></small>
+    </div>
+  </div>
+</div>
+</div></div></div></span></td>
+</tr><tr><td class="code"><label for="mAuthorization0.6003371411555374">Authorization</label></td>
+<td>
+
+<input class="parameter" minlength="0" name="Authorization" placeholder="" id="mAuthorization0.6003371411555374" type="text" value="">
+</td>
+<td class="markdown"><p>access token</p>
+</td>
+<td>header</td>
+<td>
+	<span class="model-signature">string</span>
+</td>
+</tr></tbody>
+          </table>
+          <div class="sandbox_header">
+            <input class="submit" type="submit" value="Try it out!" data-sw-translate="">
+            <a href="https://tfapi.aysar.com:555/swagger/ui/index#" class="response_hider" style="display:none" data-sw-translate="">Hide Response</a>
+            <span class="response_throbber" style="display:none"></span>
+          </div>
+        </form>
+        <div class="response" style="display:none">
+          <h4 class="curl">Curl</h4>
+          <div class="block curl"></div>
+          <h4 data-sw-translate="">Request URL</h4>
+          <div class="block request_url"></div>
+          <h4 data-sw-translate="">Response Body</h4>
+          <div class="block response_body"></div>
+          <h4 data-sw-translate="">Response Code</h4>
+          <div class="block response_code"></div>
+          <h4 data-sw-translate="">Response Headers</h4>
+          <div class="block response_headers"></div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</li><li class="endpoint">  <ul class="operations">
+    <li class="post operation" id="Values_Values_CalculationFees">
+      <div class="heading">
+        <h3>
+          <span class="http_method">
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_CalculationFees" class="toggleOperation">post</a>
+          </span>
+          <span class="path">
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_CalculationFees" class="toggleOperation ">/api/CalculationFees</a>
+          </span>
+        </h3>
+        <ul class="options">
+          <li>
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_CalculationFees" class="toggleOperation"><span class="markdown"></span></a>
+          </li>
+        </ul>
+      </div>
+      <div class="content" id="Values_Values_CalculationFees_content" style="display:none">
+          <div class="response-class">
+            <h4><span data-sw-translate="">Response Class</span> (<span data-sw-translate="">Status</span> 200)</h4>
+              <div class="markdown"><p>OK</p>
+</div>
+            <p><span class="model-signature"><div>
+<div>
+<ul class="signature-nav">
+  <li><a class="description-link" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Model</a></li>
+  <li><a class="snippet-link selected" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Example Value</a></li>
+</ul>
+<div>
+
+<div class="signature-container">
+  <div class="description" style="display: none;">
+      <span class="strong">Inline Model {</span><span class="strong">}</span>
+  </div>
+
+  <div class="snippet" style="display: block;">
+      <div class="snippet_json" style="display: block;">
+        <pre><code>{}</code></pre>
+        
+      </div>
+    <div class="snippet_xml" style="display: none;">
+      <pre><code>&lt;?xml version="1.0"?&gt;
+&lt;!-- invalid XML --&gt;
+</code></pre>
+      
+    </div>
+  </div>
+</div>
+</div></div></div></span></p>
+            <br>
+            <div class="response-content-type"><div><label data-sw-translate="" for="rct0.1051937068154527">Response Content Type</label>
+<select name="responseContentType" id="rct0.1051937068154527">
+  <option value="application/json">application/json</option>
+  <option value="text/json">text/json</option>
+  <option value="application/xml">application/xml</option>
+  <option value="text/xml">text/xml</option>
+</select>
+</div></div>
+            </div>
+
+
+        <form accept-charset="UTF-8" class="sandbox">
+          <div style="margin:0;padding:0;display:inline"></div>
+          <h4 data-sw-translate="">Parameters</h4>
+          <table class="fullwidth parameters">
+          <thead>
+            <tr>
+            <th style="width: 100px; max-width: 100px" data-sw-translate="">Parameter</th>
+            <th style="width: 310px; max-width: 310px" data-sw-translate="">Value</th>
+            <th style="width: 200px; max-width: 200px" data-sw-translate="">Description</th>
+            <th style="width: 100px; max-width: 100px" data-sw-translate="">Parameter Type</th>
+            <th style="width: 220px; max-width: 230px" data-sw-translate="">Data Type</th>
+            </tr>
+          </thead>
+          <tbody class="operation-params">
+
+          <tr><td class="code required"><label for="mBody0.021402996774465333">Body</label></td>
+<td>
+				<textarea class="body-textarea required" placeholder="(required)" name="Body" id="mBody0.021402996774465333"></textarea>
+				<div class="editor_holder"></div>
+				<br>
+				<div class="parameter-content-type"><div><label for="pct0.8326406230638908" data-sw-translate="">Parameter content type:</label>
+<select name="parameterContentType" id="pct0.8326406230638908">
+  <option value="application/json">application/json</option>
+  <option value="text/json">text/json</option>
+  <option value="application/xml">application/xml</option>
+  <option value="text/xml">text/xml</option>
+  <option value="application/x-www-form-urlencoded">application/x-www-form-urlencoded</option>
+</select>
+</div></div>
+</td>
+<td>
+	<strong><span class="markdown"></span></strong>
+</td>
+<td>body</td>
+<td><span class="model-signature"><div>
+<div>
+<ul class="signature-nav">
+  <li><a class="description-link" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Model</a></li>
+  <li><a class="snippet-link selected" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Example Value</a></li>
+</ul>
+<div>
+
+<div class="signature-container">
+  <div class="description" style="display: none;">
+      <span class="strong">Calc_Req {</span><div><span class="propName ">Authentication</span> (<span class="propType">AgentAuthentication</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">Country</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">Paymentmodeid</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">Receivecurrencyisocode</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">Sentamount</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">Receiveamount</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">CalcType</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>)</div><span class="strong">}</span><br><span class="strong">AgentAuthentication {</span><div><span class="propName ">AgentCode</span> (<span class="propType">integer</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">UserCode</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">UserPassword</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>)</div><span class="strong">}</span>
+  </div>
+
+  <div class="snippet" style="display: block;">
+      <div class="snippet_json" style="display: block;">
+        <pre><code>{
+  "Authentication": {
+    "AgentCode": 0,
+    "UserCode": "string",
+    "UserPassword": "string"
+  },
+  "Country": "string",
+  "Paymentmodeid": "string",
+  "Receivecurrencyisocode": "string",
+  "Sentamount": "string",
+  "Receiveamount": "string",
+  "CalcType": "string"
+}</code></pre>
+        <small class="notice" data-sw-translate=""></small>
+      </div>
+    <div class="snippet_xml" style="display: none;">
+      <pre><code>&lt;?xml version="1.0"?&gt;
+&lt;Calc_Req&gt;
+  &lt;Authentication&gt;
+    &lt;AgentCode&gt;1&lt;/AgentCode&gt;
+    &lt;UserCode&gt;string&lt;/UserCode&gt;
+    &lt;UserPassword&gt;string&lt;/UserPassword&gt;
+  &lt;/Authentication&gt;
+  &lt;Country&gt;string&lt;/Country&gt;
+  &lt;Paymentmodeid&gt;string&lt;/Paymentmodeid&gt;
+  &lt;Receivecurrencyisocode&gt;string&lt;/Receivecurrencyisocode&gt;
+  &lt;Sentamount&gt;string&lt;/Sentamount&gt;
+  &lt;Receiveamount&gt;string&lt;/Receiveamount&gt;
+  &lt;CalcType&gt;string&lt;/CalcType&gt;
+&lt;/Calc_Req&gt;
+</code></pre>
+      <small class="notice" data-sw-translate=""></small>
+    </div>
+  </div>
+</div>
+</div></div></div></span></td>
+</tr><tr><td class="code"><label for="mAuthorization0.04701326616511281">Authorization</label></td>
+<td>
+
+<input class="parameter" minlength="0" name="Authorization" placeholder="" id="mAuthorization0.04701326616511281" type="text" value="">
+</td>
+<td class="markdown"><p>access token</p>
+</td>
+<td>header</td>
+<td>
+	<span class="model-signature">string</span>
+</td>
+</tr></tbody>
+          </table>
+          <div class="sandbox_header">
+            <input class="submit" type="submit" value="Try it out!" data-sw-translate="">
+            <a href="https://tfapi.aysar.com:555/swagger/ui/index#" class="response_hider" style="display:none" data-sw-translate="">Hide Response</a>
+            <span class="response_throbber" style="display:none"></span>
+          </div>
+        </form>
+        <div class="response" style="display:none">
+          <h4 class="curl">Curl</h4>
+          <div class="block curl"></div>
+          <h4 data-sw-translate="">Request URL</h4>
+          <div class="block request_url"></div>
+          <h4 data-sw-translate="">Response Body</h4>
+          <div class="block response_body"></div>
+          <h4 data-sw-translate="">Response Code</h4>
+          <div class="block response_code"></div>
+          <h4 data-sw-translate="">Response Headers</h4>
+          <div class="block response_headers"></div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</li><li class="endpoint">  <ul class="operations">
+    <li class="post operation" id="Values_Values_GetCashPickupCountry">
+      <div class="heading">
+        <h3>
+          <span class="http_method">
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetCashPickupCountry" class="toggleOperation">post</a>
+          </span>
+          <span class="path">
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetCashPickupCountry" class="toggleOperation ">/api/GetCashPickupCountry</a>
+          </span>
+        </h3>
+        <ul class="options">
+          <li>
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetCashPickupCountry" class="toggleOperation"><span class="markdown"></span></a>
+          </li>
+        </ul>
+      </div>
+      <div class="content" id="Values_Values_GetCashPickupCountry_content" style="display:none">
+          <div class="response-class">
+            <h4><span data-sw-translate="">Response Class</span> (<span data-sw-translate="">Status</span> 200)</h4>
+              <div class="markdown"><p>OK</p>
+</div>
+            <p><span class="model-signature"><div>
+<div>
+<ul class="signature-nav">
+  <li><a class="description-link" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Model</a></li>
+  <li><a class="snippet-link selected" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Example Value</a></li>
+</ul>
+<div>
+
+<div class="signature-container">
+  <div class="description" style="display: none;">
+      <span class="strong">Inline Model {</span><span class="strong">}</span>
+  </div>
+
+  <div class="snippet" style="display: block;">
+      <div class="snippet_json" style="display: block;">
+        <pre><code>{}</code></pre>
+        
+      </div>
+    <div class="snippet_xml" style="display: none;">
+      <pre><code>&lt;?xml version="1.0"?&gt;
+&lt;!-- invalid XML --&gt;
+</code></pre>
+      
+    </div>
+  </div>
+</div>
+</div></div></div></span></p>
+            <br>
+            <div class="response-content-type"><div><label data-sw-translate="" for="rct0.2420957757648905">Response Content Type</label>
+<select name="responseContentType" id="rct0.2420957757648905">
+  <option value="application/json">application/json</option>
+  <option value="text/json">text/json</option>
+  <option value="application/xml">application/xml</option>
+  <option value="text/xml">text/xml</option>
+</select>
+</div></div>
+            </div>
+
+
+        <form accept-charset="UTF-8" class="sandbox">
+          <div style="margin:0;padding:0;display:inline"></div>
+          <h4 data-sw-translate="">Parameters</h4>
+          <table class="fullwidth parameters">
+          <thead>
+            <tr>
+            <th style="width: 100px; max-width: 100px" data-sw-translate="">Parameter</th>
+            <th style="width: 310px; max-width: 310px" data-sw-translate="">Value</th>
+            <th style="width: 200px; max-width: 200px" data-sw-translate="">Description</th>
+            <th style="width: 100px; max-width: 100px" data-sw-translate="">Parameter Type</th>
+            <th style="width: 220px; max-width: 230px" data-sw-translate="">Data Type</th>
+            </tr>
+          </thead>
+          <tbody class="operation-params">
+
+          <tr><td class="code required"><label for="mAuthentication0.8411897816210445">Authentication</label></td>
+<td>
+				<textarea class="body-textarea required" placeholder="(required)" name="Authentication" id="mAuthentication0.8411897816210445"></textarea>
+				<div class="editor_holder"></div>
+				<br>
+				<div class="parameter-content-type"><div><label for="pct0.470461675347138" data-sw-translate="">Parameter content type:</label>
+<select name="parameterContentType" id="pct0.470461675347138">
+  <option value="application/json">application/json</option>
+  <option value="text/json">text/json</option>
+  <option value="application/xml">application/xml</option>
+  <option value="text/xml">text/xml</option>
+  <option value="application/x-www-form-urlencoded">application/x-www-form-urlencoded</option>
+</select>
+</div></div>
+</td>
+<td>
+	<strong><span class="markdown"></span></strong>
+</td>
+<td>body</td>
+<td><span class="model-signature"><div>
+<div>
+<ul class="signature-nav">
+  <li><a class="description-link" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Model</a></li>
+  <li><a class="snippet-link selected" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Example Value</a></li>
+</ul>
+<div>
+
+<div class="signature-container">
+  <div class="description" style="display: none;">
+      <span class="strong">AgentAuthentication {</span><div><span class="propName ">AgentCode</span> (<span class="propType">integer</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">UserCode</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">UserPassword</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>)</div><span class="strong">}</span>
+  </div>
+
+  <div class="snippet" style="display: block;">
+      <div class="snippet_json" style="display: block;">
+        <pre><code>{
+  "AgentCode": 0,
+  "UserCode": "string",
+  "UserPassword": "string"
+}</code></pre>
+        <small class="notice" data-sw-translate=""></small>
+      </div>
+    <div class="snippet_xml" style="display: none;">
+      <pre><code>&lt;?xml version="1.0"?&gt;
+&lt;AgentAuthentication&gt;
+  &lt;AgentCode&gt;1&lt;/AgentCode&gt;
+  &lt;UserCode&gt;string&lt;/UserCode&gt;
+  &lt;UserPassword&gt;string&lt;/UserPassword&gt;
+&lt;/AgentAuthentication&gt;
+</code></pre>
+      <small class="notice" data-sw-translate=""></small>
+    </div>
+  </div>
+</div>
+</div></div></div></span></td>
+</tr><tr><td class="code"><label for="mAuthorization0.1091844685648724">Authorization</label></td>
+<td>
+
+<input class="parameter" minlength="0" name="Authorization" placeholder="" id="mAuthorization0.1091844685648724" type="text" value="">
+</td>
+<td class="markdown"><p>access token</p>
+</td>
+<td>header</td>
+<td>
+	<span class="model-signature">string</span>
+</td>
+</tr></tbody>
+          </table>
+          <div class="sandbox_header">
+            <input class="submit" type="submit" value="Try it out!" data-sw-translate="">
+            <a href="https://tfapi.aysar.com:555/swagger/ui/index#" class="response_hider" style="display:none" data-sw-translate="">Hide Response</a>
+            <span class="response_throbber" style="display:none"></span>
+          </div>
+        </form>
+        <div class="response" style="display:none">
+          <h4 class="curl">Curl</h4>
+          <div class="block curl"></div>
+          <h4 data-sw-translate="">Request URL</h4>
+          <div class="block request_url"></div>
+          <h4 data-sw-translate="">Response Body</h4>
+          <div class="block response_body"></div>
+          <h4 data-sw-translate="">Response Code</h4>
+          <div class="block response_code"></div>
+          <h4 data-sw-translate="">Response Headers</h4>
+          <div class="block response_headers"></div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</li><li class="endpoint">  <ul class="operations">
+    <li class="post operation" id="Values_Values_GetBankDetailByRoutingNo">
+      <div class="heading">
+        <h3>
+          <span class="http_method">
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetBankDetailByRoutingNo" class="toggleOperation">post</a>
+          </span>
+          <span class="path">
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetBankDetailByRoutingNo" class="toggleOperation ">/api/GetBankDetailByRoutingNo</a>
+          </span>
+        </h3>
+        <ul class="options">
+          <li>
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetBankDetailByRoutingNo" class="toggleOperation"><span class="markdown"></span></a>
+          </li>
+        </ul>
+      </div>
+      <div class="content" id="Values_Values_GetBankDetailByRoutingNo_content" style="display:none">
+          <div class="response-class">
+            <h4><span data-sw-translate="">Response Class</span> (<span data-sw-translate="">Status</span> 200)</h4>
+              <div class="markdown"><p>OK</p>
+</div>
+            <p><span class="model-signature"><div>
+<div>
+<ul class="signature-nav">
+  <li><a class="description-link" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Model</a></li>
+  <li><a class="snippet-link selected" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Example Value</a></li>
+</ul>
+<div>
+
+<div class="signature-container">
+  <div class="description" style="display: none;">
+      <span class="strong">Inline Model {</span><span class="strong">}</span>
+  </div>
+
+  <div class="snippet" style="display: block;">
+      <div class="snippet_json" style="display: block;">
+        <pre><code>{}</code></pre>
+        
+      </div>
+    <div class="snippet_xml" style="display: none;">
+      <pre><code>&lt;?xml version="1.0"?&gt;
+&lt;!-- invalid XML --&gt;
+</code></pre>
+      
+    </div>
+  </div>
+</div>
+</div></div></div></span></p>
+            <br>
+            <div class="response-content-type"><div><label data-sw-translate="" for="rct0.3245813774019599">Response Content Type</label>
+<select name="responseContentType" id="rct0.3245813774019599">
+  <option value="application/json">application/json</option>
+  <option value="text/json">text/json</option>
+  <option value="application/xml">application/xml</option>
+  <option value="text/xml">text/xml</option>
+</select>
+</div></div>
+            </div>
+
+
+        <form accept-charset="UTF-8" class="sandbox">
+          <div style="margin:0;padding:0;display:inline"></div>
+          <h4 data-sw-translate="">Parameters</h4>
+          <table class="fullwidth parameters">
+          <thead>
+            <tr>
+            <th style="width: 100px; max-width: 100px" data-sw-translate="">Parameter</th>
+            <th style="width: 310px; max-width: 310px" data-sw-translate="">Value</th>
+            <th style="width: 200px; max-width: 200px" data-sw-translate="">Description</th>
+            <th style="width: 100px; max-width: 100px" data-sw-translate="">Parameter Type</th>
+            <th style="width: 220px; max-width: 230px" data-sw-translate="">Data Type</th>
+            </tr>
+          </thead>
+          <tbody class="operation-params">
+
+          <tr><td class="code required"><label for="mBody0.5336639150174654">Body</label></td>
+<td>
+				<textarea class="body-textarea required" placeholder="(required)" name="Body" id="mBody0.5336639150174654"></textarea>
+				<div class="editor_holder"></div>
+				<br>
+				<div class="parameter-content-type"><div><label for="pct0.3832740455830197" data-sw-translate="">Parameter content type:</label>
+<select name="parameterContentType" id="pct0.3832740455830197">
+  <option value="application/json">application/json</option>
+  <option value="text/json">text/json</option>
+  <option value="application/xml">application/xml</option>
+  <option value="text/xml">text/xml</option>
+  <option value="application/x-www-form-urlencoded">application/x-www-form-urlencoded</option>
+</select>
+</div></div>
+</td>
+<td>
+	<strong><span class="markdown"></span></strong>
+</td>
+<td>body</td>
+<td><span class="model-signature"><div>
+<div>
+<ul class="signature-nav">
+  <li><a class="description-link" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Model</a></li>
+  <li><a class="snippet-link selected" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Example Value</a></li>
+</ul>
+<div>
+
+<div class="signature-container">
+  <div class="description" style="display: none;">
+      <span class="strong">BankDetailByRoutingNo_Req {</span><div><span class="propName ">Authentication</span> (<span class="propType">AgentAuthentication</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">Country</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">RoutingNumber</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>)</div><span class="strong">}</span><br><span class="strong">AgentAuthentication {</span><div><span class="propName ">AgentCode</span> (<span class="propType">integer</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">UserCode</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">UserPassword</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>)</div><span class="strong">}</span>
+  </div>
+
+  <div class="snippet" style="display: block;">
+      <div class="snippet_json" style="display: block;">
+        <pre><code>{
+  "Authentication": {
+    "AgentCode": 0,
+    "UserCode": "string",
+    "UserPassword": "string"
+  },
+  "Country": "string",
+  "RoutingNumber": "string"
+}</code></pre>
+        <small class="notice" data-sw-translate=""></small>
+      </div>
+    <div class="snippet_xml" style="display: none;">
+      <pre><code>&lt;?xml version="1.0"?&gt;
+&lt;BankDetailByRoutingNo_Req&gt;
+  &lt;Authentication&gt;
+    &lt;AgentCode&gt;1&lt;/AgentCode&gt;
+    &lt;UserCode&gt;string&lt;/UserCode&gt;
+    &lt;UserPassword&gt;string&lt;/UserPassword&gt;
+  &lt;/Authentication&gt;
+  &lt;Country&gt;string&lt;/Country&gt;
+  &lt;RoutingNumber&gt;string&lt;/RoutingNumber&gt;
+&lt;/BankDetailByRoutingNo_Req&gt;
+</code></pre>
+      <small class="notice" data-sw-translate=""></small>
+    </div>
+  </div>
+</div>
+</div></div></div></span></td>
+</tr><tr><td class="code"><label for="mAuthorization0.6480743062716843">Authorization</label></td>
+<td>
+
+<input class="parameter" minlength="0" name="Authorization" placeholder="" id="mAuthorization0.6480743062716843" type="text" value="">
+</td>
+<td class="markdown"><p>access token</p>
+</td>
+<td>header</td>
+<td>
+	<span class="model-signature">string</span>
+</td>
+</tr></tbody>
+          </table>
+          <div class="sandbox_header">
+            <input class="submit" type="submit" value="Try it out!" data-sw-translate="">
+            <a href="https://tfapi.aysar.com:555/swagger/ui/index#" class="response_hider" style="display:none" data-sw-translate="">Hide Response</a>
+            <span class="response_throbber" style="display:none"></span>
+          </div>
+        </form>
+        <div class="response" style="display:none">
+          <h4 class="curl">Curl</h4>
+          <div class="block curl"></div>
+          <h4 data-sw-translate="">Request URL</h4>
+          <div class="block request_url"></div>
+          <h4 data-sw-translate="">Response Body</h4>
+          <div class="block response_body"></div>
+          <h4 data-sw-translate="">Response Code</h4>
+          <div class="block response_code"></div>
+          <h4 data-sw-translate="">Response Headers</h4>
+          <div class="block response_headers"></div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</li><li class="endpoint">  <ul class="operations">
+    <li class="post operation" id="Values_Values_GetPayersDetails">
+      <div class="heading">
+        <h3>
+          <span class="http_method">
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetPayersDetails" class="toggleOperation">post</a>
+          </span>
+          <span class="path">
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetPayersDetails" class="toggleOperation ">/api/GetPayersDetails</a>
+          </span>
+        </h3>
+        <ul class="options">
+          <li>
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetPayersDetails" class="toggleOperation"><span class="markdown"></span></a>
+          </li>
+        </ul>
+      </div>
+      <div class="content" id="Values_Values_GetPayersDetails_content" style="display:none">
+          <div class="response-class">
+            <h4><span data-sw-translate="">Response Class</span> (<span data-sw-translate="">Status</span> 200)</h4>
+              <div class="markdown"><p>OK</p>
+</div>
+            <p><span class="model-signature"><div>
+<div>
+<ul class="signature-nav">
+  <li><a class="description-link" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Model</a></li>
+  <li><a class="snippet-link selected" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Example Value</a></li>
+</ul>
+<div>
+
+<div class="signature-container">
+  <div class="description" style="display: none;">
+      <span class="strong">Inline Model {</span><span class="strong">}</span>
+  </div>
+
+  <div class="snippet" style="display: block;">
+      <div class="snippet_json" style="display: block;">
+        <pre><code>{}</code></pre>
+        
+      </div>
+    <div class="snippet_xml" style="display: none;">
+      <pre><code>&lt;?xml version="1.0"?&gt;
+&lt;!-- invalid XML --&gt;
+</code></pre>
+      
+    </div>
+  </div>
+</div>
+</div></div></div></span></p>
+            <br>
+            <div class="response-content-type"><div><label data-sw-translate="" for="rct0.18133907588686116">Response Content Type</label>
+<select name="responseContentType" id="rct0.18133907588686116">
+  <option value="application/json">application/json</option>
+  <option value="text/json">text/json</option>
+  <option value="application/xml">application/xml</option>
+  <option value="text/xml">text/xml</option>
+</select>
+</div></div>
+            </div>
+
+
+        <form accept-charset="UTF-8" class="sandbox">
+          <div style="margin:0;padding:0;display:inline"></div>
+          <h4 data-sw-translate="">Parameters</h4>
+          <table class="fullwidth parameters">
+          <thead>
+            <tr>
+            <th style="width: 100px; max-width: 100px" data-sw-translate="">Parameter</th>
+            <th style="width: 310px; max-width: 310px" data-sw-translate="">Value</th>
+            <th style="width: 200px; max-width: 200px" data-sw-translate="">Description</th>
+            <th style="width: 100px; max-width: 100px" data-sw-translate="">Parameter Type</th>
+            <th style="width: 220px; max-width: 230px" data-sw-translate="">Data Type</th>
+            </tr>
+          </thead>
+          <tbody class="operation-params">
+
+          <tr><td class="code required"><label for="mBody0.22684573559508858">Body</label></td>
+<td>
+				<textarea class="body-textarea required" placeholder="(required)" name="Body" id="mBody0.22684573559508858"></textarea>
+				<div class="editor_holder"></div>
+				<br>
+				<div class="parameter-content-type"><div><label for="pct0.9224407637296606" data-sw-translate="">Parameter content type:</label>
+<select name="parameterContentType" id="pct0.9224407637296606">
+  <option value="application/json">application/json</option>
+  <option value="text/json">text/json</option>
+  <option value="application/xml">application/xml</option>
+  <option value="text/xml">text/xml</option>
+  <option value="application/x-www-form-urlencoded">application/x-www-form-urlencoded</option>
+</select>
+</div></div>
+</td>
+<td>
+	<strong><span class="markdown"></span></strong>
+</td>
+<td>body</td>
+<td><span class="model-signature"><div>
+<div>
+<ul class="signature-nav">
+  <li><a class="description-link" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Model</a></li>
+  <li><a class="snippet-link selected" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Example Value</a></li>
+</ul>
+<div>
+
+<div class="signature-container">
+  <div class="description" style="display: none;">
+      <span class="strong">PayersDetails_Req {</span><div><span class="propName ">Authentication</span> (<span class="propType">AgentAuthentication</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">Country</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">City</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">TownId</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">PaymentModeId</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">payoutCurr</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">BankId</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">PayInCurr</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>)</div><span class="strong">}</span><br><span class="strong">AgentAuthentication {</span><div><span class="propName ">AgentCode</span> (<span class="propType">integer</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">UserCode</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">UserPassword</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>)</div><span class="strong">}</span>
+  </div>
+
+  <div class="snippet" style="display: block;">
+      <div class="snippet_json" style="display: block;">
+        <pre><code>{
+  "Authentication": {
+    "AgentCode": 0,
+    "UserCode": "string",
+    "UserPassword": "string"
+  },
+  "Country": "string",
+  "City": "string",
+  "TownId": "string",
+  "PaymentModeId": "string",
+  "payoutCurr": "string",
+  "BankId": "string",
+  "PayInCurr": "string"
+}</code></pre>
+        <small class="notice" data-sw-translate=""></small>
+      </div>
+    <div class="snippet_xml" style="display: none;">
+      <pre><code>&lt;?xml version="1.0"?&gt;
+&lt;PayersDetails_Req&gt;
+  &lt;Authentication&gt;
+    &lt;AgentCode&gt;1&lt;/AgentCode&gt;
+    &lt;UserCode&gt;string&lt;/UserCode&gt;
+    &lt;UserPassword&gt;string&lt;/UserPassword&gt;
+  &lt;/Authentication&gt;
+  &lt;Country&gt;string&lt;/Country&gt;
+  &lt;City&gt;string&lt;/City&gt;
+  &lt;TownId&gt;string&lt;/TownId&gt;
+  &lt;PaymentModeId&gt;string&lt;/PaymentModeId&gt;
+  &lt;payoutCurr&gt;string&lt;/payoutCurr&gt;
+  &lt;BankId&gt;string&lt;/BankId&gt;
+  &lt;PayInCurr&gt;string&lt;/PayInCurr&gt;
+&lt;/PayersDetails_Req&gt;
+</code></pre>
+      <small class="notice" data-sw-translate=""></small>
+    </div>
+  </div>
+</div>
+</div></div></div></span></td>
+</tr><tr><td class="code"><label for="mAuthorization0.23435091124267804">Authorization</label></td>
+<td>
+
+<input class="parameter" minlength="0" name="Authorization" placeholder="" id="mAuthorization0.23435091124267804" type="text" value="">
+</td>
+<td class="markdown"><p>access token</p>
+</td>
+<td>header</td>
+<td>
+	<span class="model-signature">string</span>
+</td>
+</tr></tbody>
+          </table>
+          <div class="sandbox_header">
+            <input class="submit" type="submit" value="Try it out!" data-sw-translate="">
+            <a href="https://tfapi.aysar.com:555/swagger/ui/index#" class="response_hider" style="display:none" data-sw-translate="">Hide Response</a>
+            <span class="response_throbber" style="display:none"></span>
+          </div>
+        </form>
+        <div class="response" style="display:none">
+          <h4 class="curl">Curl</h4>
+          <div class="block curl"></div>
+          <h4 data-sw-translate="">Request URL</h4>
+          <div class="block request_url"></div>
+          <h4 data-sw-translate="">Response Body</h4>
+          <div class="block response_body"></div>
+          <h4 data-sw-translate="">Response Code</h4>
+          <div class="block response_code"></div>
+          <h4 data-sw-translate="">Response Headers</h4>
+          <div class="block response_headers"></div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</li><li class="endpoint">  <ul class="operations">
+    <li class="post operation" id="Values_Values_SendRemit">
+      <div class="heading">
+        <h3>
+          <span class="http_method">
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_SendRemit" class="toggleOperation">post</a>
+          </span>
+          <span class="path">
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_SendRemit" class="toggleOperation ">/api/SendRemit</a>
+          </span>
+        </h3>
+        <ul class="options">
+          <li>
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_SendRemit" class="toggleOperation"><span class="markdown"></span></a>
+          </li>
+        </ul>
+      </div>
+      <div class="content" id="Values_Values_SendRemit_content" style="display:none">
+          <div class="response-class">
+            <h4><span data-sw-translate="">Response Class</span> (<span data-sw-translate="">Status</span> 200)</h4>
+              <div class="markdown"><p>OK</p>
+</div>
+            <p><span class="model-signature"><div>
+<div>
+<ul class="signature-nav">
+  <li><a class="description-link" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Model</a></li>
+  <li><a class="snippet-link selected" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Example Value</a></li>
+</ul>
+<div>
+
+<div class="signature-container">
+  <div class="description" style="display: none;">
+      <span class="strong">Inline Model {</span><span class="strong">}</span>
+  </div>
+
+  <div class="snippet" style="display: block;">
+      <div class="snippet_json" style="display: block;">
+        <pre><code>{}</code></pre>
+        
+      </div>
+    <div class="snippet_xml" style="display: none;">
+      <pre><code>&lt;?xml version="1.0"?&gt;
+&lt;!-- invalid XML --&gt;
+</code></pre>
+      
+    </div>
+  </div>
+</div>
+</div></div></div></span></p>
+            <br>
+            <div class="response-content-type"><div><label data-sw-translate="" for="rct0.5202172043257063">Response Content Type</label>
+<select name="responseContentType" id="rct0.5202172043257063">
+  <option value="application/json">application/json</option>
+  <option value="text/json">text/json</option>
+  <option value="application/xml">application/xml</option>
+  <option value="text/xml">text/xml</option>
+</select>
+</div></div>
+            </div>
+
+
+        <form accept-charset="UTF-8" class="sandbox">
+          <div style="margin:0;padding:0;display:inline"></div>
+          <h4 data-sw-translate="">Parameters</h4>
+          <table class="fullwidth parameters">
+          <thead>
+            <tr>
+            <th style="width: 100px; max-width: 100px" data-sw-translate="">Parameter</th>
+            <th style="width: 310px; max-width: 310px" data-sw-translate="">Value</th>
+            <th style="width: 200px; max-width: 200px" data-sw-translate="">Description</th>
+            <th style="width: 100px; max-width: 100px" data-sw-translate="">Parameter Type</th>
+            <th style="width: 220px; max-width: 230px" data-sw-translate="">Data Type</th>
+            </tr>
+          </thead>
+          <tbody class="operation-params">
+
+          <tr><td class="code required"><label for="mBody0.03673684651446374">Body</label></td>
+<td>
+				<textarea class="body-textarea required" placeholder="(required)" name="Body" id="mBody0.03673684651446374"></textarea>
+				<div class="editor_holder"></div>
+				<br>
+				<div class="parameter-content-type"><div><label for="pct0.7943289610884732" data-sw-translate="">Parameter content type:</label>
+<select name="parameterContentType" id="pct0.7943289610884732">
+  <option value="application/json">application/json</option>
+  <option value="text/json">text/json</option>
+  <option value="application/xml">application/xml</option>
+  <option value="text/xml">text/xml</option>
+  <option value="application/x-www-form-urlencoded">application/x-www-form-urlencoded</option>
+</select>
+</div></div>
+</td>
+<td>
+	<strong><span class="markdown"></span></strong>
+</td>
+<td>body</td>
+<td><span class="model-signature"><div>
+<div>
+<ul class="signature-nav">
+  <li><a class="description-link" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Model</a></li>
+  <li><a class="snippet-link selected" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Example Value</a></li>
+</ul>
+<div>
+
+<div class="signature-container">
+  <div class="description" style="display: none;">
+      <span class="strong">RemitInfoTF {</span><div><span class="propName ">Authentication</span> (<span class="propType">AgentAuthentication</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">ReferenceNumber</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">ReceiverCountry</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">PaymentModeId</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">PayOutCurrency</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">CustomerRate</span> (<span class="propType">number</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">PayInAmount</span> (<span class="propType">number</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">PayOutAmount</span> (<span class="propType">number</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">Commission</span> (<span class="propType">number</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">SenderFullName</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">SenderPhone</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">SenderAddress</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">SenderNationality</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">SenderNationalityNo</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">SenderGender</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">SenderIdType</span> (<span class="propType">integer</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">SenderIdPlaceIssue</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">SenderIdNo</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">SenderIdExpDate</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">SenderDateOfBirth</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">SenderOccupation</span> (<span class="propType">integer</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">SenderRealtion</span> (<span class="propType">integer</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">ReceiverFirstName</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">ReceiverMiddleName</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">ReceiverLastName</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">ReceiverPhone</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">ReceiverAddress</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">ReceiverNationality</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">RemittancePurpose</span> (<span class="propType">integer</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">BankId</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">BankName</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">BankBranchName</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">BankAccNo</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">BankBranchId</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">PayerId</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">PayingBranchId</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">IfcsCode</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>)</div><span class="strong">}</span><br><span class="strong">AgentAuthentication {</span><div><span class="propName ">AgentCode</span> (<span class="propType">integer</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">UserCode</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>),</div><div><span class="propName ">UserPassword</span> (<span class="propType">string</span>, <span class="propOptKey">optional</span>)</div><span class="strong">}</span>
+  </div>
+
+  <div class="snippet" style="display: block;">
+      <div class="snippet_json" style="display: block;">
+        <pre><code>{
+  "Authentication": {
+    "AgentCode": 0,
+    "UserCode": "string",
+    "UserPassword": "string"
+  },
+  "ReferenceNumber": "string",
+  "ReceiverCountry": "string",
+  "PaymentModeId": "string",
+  "PayOutCurrency": "string",
+  "CustomerRate": 0,
+  "PayInAmount": 0,
+  "PayOutAmount": 0,
+  "Commission": 0,
+  "SenderFullName": "string",
+  "SenderPhone": "string",
+  "SenderAddress": "string",
+  "SenderNationality": "string",
+  "SenderNationalityNo": "string",
+  "SenderGender": "string",
+  "SenderIdType": 0,
+  "SenderIdPlaceIssue": "string",
+  "SenderIdNo": "string",
+  "SenderIdExpDate": "string",
+  "SenderDateOfBirth": "string",
+  "SenderOccupation": 0,
+  "SenderRealtion": 0,
+  "ReceiverFirstName": "string",
+  "ReceiverMiddleName": "string",
+  "ReceiverLastName": "string",
+  "ReceiverPhone": "string",
+  "ReceiverAddress": "string",
+  "ReceiverNationality": "string",
+  "RemittancePurpose": 0,
+  "BankId": "string",
+  "BankName": "string",
+  "BankBranchName": "string",
+  "BankAccNo": "string",
+  "BankBranchId": "string",
+  "PayerId": "string",
+  "PayingBranchId": "string",
+  "IfcsCode": "string"
+}</code></pre>
+        <small class="notice" data-sw-translate=""></small>
+      </div>
+    <div class="snippet_xml" style="display: none;">
+      <pre><code>&lt;?xml version="1.0"?&gt;
+&lt;RemitInfoTF&gt;
+  &lt;Authentication&gt;
+    &lt;AgentCode&gt;1&lt;/AgentCode&gt;
+    &lt;UserCode&gt;string&lt;/UserCode&gt;
+    &lt;UserPassword&gt;string&lt;/UserPassword&gt;
+  &lt;/Authentication&gt;
+  &lt;ReferenceNumber&gt;string&lt;/ReferenceNumber&gt;
+  &lt;ReceiverCountry&gt;string&lt;/ReceiverCountry&gt;
+  &lt;PaymentModeId&gt;string&lt;/PaymentModeId&gt;
+  &lt;PayOutCurrency&gt;string&lt;/PayOutCurrency&gt;
+  &lt;CustomerRate&gt;1.1&lt;/CustomerRate&gt;
+  &lt;PayInAmount&gt;1.1&lt;/PayInAmount&gt;
+  &lt;PayOutAmount&gt;1.1&lt;/PayOutAmount&gt;
+  &lt;Commission&gt;1.1&lt;/Commission&gt;
+  &lt;SenderFullName&gt;string&lt;/SenderFullName&gt;
+  &lt;SenderPhone&gt;string&lt;/SenderPhone&gt;
+  &lt;SenderAddress&gt;string&lt;/SenderAddress&gt;
+  &lt;SenderNationality&gt;string&lt;/SenderNationality&gt;
+  &lt;SenderNationalityNo&gt;string&lt;/SenderNationalityNo&gt;
+  &lt;SenderGender&gt;string&lt;/SenderGender&gt;
+  &lt;SenderIdType&gt;1&lt;/SenderIdType&gt;
+  &lt;SenderIdPlaceIssue&gt;string&lt;/SenderIdPlaceIssue&gt;
+  &lt;SenderIdNo&gt;string&lt;/SenderIdNo&gt;
+  &lt;SenderIdExpDate&gt;string&lt;/SenderIdExpDate&gt;
+  &lt;SenderDateOfBirth&gt;string&lt;/SenderDateOfBirth&gt;
+  &lt;SenderOccupation&gt;1&lt;/SenderOccupation&gt;
+  &lt;SenderRealtion&gt;1&lt;/SenderRealtion&gt;
+  &lt;ReceiverFirstName&gt;string&lt;/ReceiverFirstName&gt;
+  &lt;ReceiverMiddleName&gt;string&lt;/ReceiverMiddleName&gt;
+  &lt;ReceiverLastName&gt;string&lt;/ReceiverLastName&gt;
+  &lt;ReceiverPhone&gt;string&lt;/ReceiverPhone&gt;
+  &lt;ReceiverAddress&gt;string&lt;/ReceiverAddress&gt;
+  &lt;ReceiverNationality&gt;string&lt;/ReceiverNationality&gt;
+  &lt;RemittancePurpose&gt;1&lt;/RemittancePurpose&gt;
+  &lt;BankId&gt;string&lt;/BankId&gt;
+  &lt;BankName&gt;string&lt;/BankName&gt;
+  &lt;BankBranchName&gt;string&lt;/BankBranchName&gt;
+  &lt;BankAccNo&gt;string&lt;/BankAccNo&gt;
+  &lt;BankBranchId&gt;string&lt;/BankBranchId&gt;
+  &lt;PayerId&gt;string&lt;/PayerId&gt;
+  &lt;PayingBranchId&gt;string&lt;/PayingBranchId&gt;
+  &lt;IfcsCode&gt;string&lt;/IfcsCode&gt;
+&lt;/RemitInfoTF&gt;
+</code></pre>
+      <small class="notice" data-sw-translate=""></small>
+    </div>
+  </div>
+</div>
+</div></div></div></span></td>
+</tr><tr><td class="code"><label for="mAuthorization0.4307539074128568">Authorization</label></td>
+<td>
+
+<input class="parameter" minlength="0" name="Authorization" placeholder="" id="mAuthorization0.4307539074128568" type="text" value="">
+</td>
+<td class="markdown"><p>access token</p>
+</td>
+<td>header</td>
+<td>
+	<span class="model-signature">string</span>
+</td>
+</tr></tbody>
+          </table>
+          <div class="sandbox_header">
+            <input class="submit" type="submit" value="Try it out!" data-sw-translate="">
+            <a href="https://tfapi.aysar.com:555/swagger/ui/index#" class="response_hider" style="display:none" data-sw-translate="">Hide Response</a>
+            <span class="response_throbber" style="display:none"></span>
+          </div>
+        </form>
+        <div class="response" style="display:none">
+          <h4 class="curl">Curl</h4>
+          <div class="block curl"></div>
+          <h4 data-sw-translate="">Request URL</h4>
+          <div class="block request_url"></div>
+          <h4 data-sw-translate="">Response Body</h4>
+          <div class="block response_body"></div>
+          <h4 data-sw-translate="">Response Code</h4>
+          <div class="block response_code"></div>
+          <h4 data-sw-translate="">Response Headers</h4>
+          <div class="block response_headers"></div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</li><li class="endpoint">  <ul class="operations">
+    <li class="get operation" id="Values_Values_GetCashPickupCountryxx">
+      <div class="heading">
+        <h3>
+          <span class="http_method">
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetCashPickupCountryxx" class="toggleOperation">get</a>
+          </span>
+          <span class="path">
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetCashPickupCountryxx" class="toggleOperation ">/api/Values</a>
+          </span>
+        </h3>
+        <ul class="options">
+          <li>
+          <a href="https://tfapi.aysar.com:555/swagger/ui/index#!/Values/Values_GetCashPickupCountryxx" class="toggleOperation"><span class="markdown"></span></a>
+          </li>
+        </ul>
+      </div>
+      <div class="content" id="Values_Values_GetCashPickupCountryxx_content" style="display:none">
+          <div class="response-class">
+            <h4><span data-sw-translate="">Response Class</span> (<span data-sw-translate="">Status</span> 200)</h4>
+              <div class="markdown"><p>OK</p>
+</div>
+            <p><span class="model-signature"><div>
+<div>
+<ul class="signature-nav">
+  <li><a class="description-link" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Model</a></li>
+  <li><a class="snippet-link selected" href="https://tfapi.aysar.com:555/swagger/ui/index#" data-sw-translate="">Example Value</a></li>
+</ul>
+<div>
+
+<div class="signature-container">
+  <div class="description" style="display: none;">
+      <span class="strong">Inline Model {</span><span class="strong">}</span>
+  </div>
+
+  <div class="snippet" style="display: block;">
+      <div class="snippet_json" style="display: block;">
+        <pre><code>{}</code></pre>
+        
+      </div>
+    <div class="snippet_xml" style="display: none;">
+      <pre><code>&lt;?xml version="1.0"?&gt;
+&lt;!-- invalid XML --&gt;
+</code></pre>
+      
+    </div>
+  </div>
+</div>
+</div></div></div></span></p>
+            <br>
+            <div class="response-content-type"><div><label data-sw-translate="" for="rct0.22197450523739004">Response Content Type</label>
+<select name="responseContentType" id="rct0.22197450523739004">
+  <option value="application/json">application/json</option>
+  <option value="text/json">text/json</option>
+  <option value="application/xml">application/xml</option>
+  <option value="text/xml">text/xml</option>
+</select>
+</div></div>
+            </div>
+
+
+        <form accept-charset="UTF-8" class="sandbox">
+          <div style="margin:0;padding:0;display:inline"></div>
+          <h4 data-sw-translate="">Parameters</h4>
+          <table class="fullwidth parameters">
+          <thead>
+            <tr>
+            <th style="width: 100px; max-width: 100px" data-sw-translate="">Parameter</th>
+            <th style="width: 310px; max-width: 310px" data-sw-translate="">Value</th>
+            <th style="width: 200px; max-width: 200px" data-sw-translate="">Description</th>
+            <th style="width: 100px; max-width: 100px" data-sw-translate="">Parameter Type</th>
+            <th style="width: 220px; max-width: 230px" data-sw-translate="">Data Type</th>
+            </tr>
+          </thead>
+          <tbody class="operation-params">
+
+          <tr><td class="code"><label for="mAuthentication.agentCode0.1968920530769538">Authentication.agentCode</label></td>
+<td>
+
+<input class="parameter" minlength="0" name="Authentication.agentCode" placeholder="" id="mAuthentication.agentCode0.1968920530769538" type="text" value="">
+</td>
+<td class="markdown"></td>
+<td>query</td>
+<td>
+	<span class="model-signature">integer</span>
+</td>
+</tr><tr><td class="code"><label for="mAuthentication.userCode0.1902613818422474">Authentication.userCode</label></td>
+<td>
+
+<input class="parameter" minlength="0" name="Authentication.userCode" placeholder="" id="mAuthentication.userCode0.1902613818422474" type="text" value="">
+</td>
+<td class="markdown"></td>
+<td>query</td>
+<td>
+	<span class="model-signature">string</span>
+</td>
+</tr><tr><td class="code"><label for="mAuthentication.userPassword0.9336146294183398">Authentication.userPassword</label></td>
+<td>
+
+<input class="parameter" minlength="0" name="Authentication.userPassword" placeholder="" id="mAuthentication.userPassword0.9336146294183398" type="text" value="">
+</td>
+<td class="markdown"></td>
+<td>query</td>
+<td>
+	<span class="model-signature">string</span>
+</td>
+</tr><tr><td class="code"><label for="mAuthorization0.9588969089036183">Authorization</label></td>
+<td>
+
+<input class="parameter" minlength="0" name="Authorization" placeholder="" id="mAuthorization0.9588969089036183" type="text" value="">
+</td>
+<td class="markdown"><p>access token</p>
+</td>
+<td>header</td>
+<td>
+	<span class="model-signature">string</span>
+</td>
+</tr></tbody>
+          </table>
+          <div class="sandbox_header">
+            <input class="submit" type="submit" value="Try it out!" data-sw-translate="">
+            <a href="https://tfapi.aysar.com:555/swagger/ui/index#" class="response_hider" style="display:none" data-sw-translate="">Hide Response</a>
+            <span class="response_throbber" style="display:none"></span>
+          </div>
+        </form>
+        <div class="response" style="display:none">
+          <h4 class="curl">Curl</h4>
+          <div class="block curl"></div>
+          <h4 data-sw-translate="">Request URL</h4>
+          <div class="block request_url"></div>
+          <h4 data-sw-translate="">Response Body</h4>
+          <div class="block response_body"></div>
+          <h4 data-sw-translate="">Response Code</h4>
+          <div class="block response_code"></div>
+          <h4 data-sw-translate="">Response Headers</h4>
+          <div class="block response_headers"></div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</li></ul>
+</li></ul>
+
+  <div class="footer">
+    <h4 style="color: #999">[ <span style="font-variant: small-caps">base url</span>: 
+  , <span style="font-variant: small-caps" data-sw-translate="">api version</span>: v1
+    ]
+    <span style="float:right"><a target="_blank" href="https://online.swagger.io/validator/debug?url=https://tfapi.aysar.com:555//swagger/docs/v1"><img id="validator" src="./Wings Soft API TransFast_files/validator"></a>
+    </span>
+    </h4>
+    </div>
+</div>
+</div>
+
+
+</body></html>
